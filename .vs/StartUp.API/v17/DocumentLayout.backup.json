@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\nour_\\source\\repos\\StartUp.API\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2A5E53F9-994E-4A90-B66E-FC0BB566C23E}|StartUp\\StartUp.csproj|c:\\users\\nour_\\source\\repos\\startup.api\\startup\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A5E53F9-994E-4A90-B66E-FC0BB566C23E}|StartUp\\StartUp.csproj|solutionrelative:startup\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2A5E53F9-994E-4A90-B66E-FC0BB566C23E}|StartUp\\StartUp.csproj|c:\\users\\nour_\\source\\repos\\startup.api\\startup\\services\\dummyemailsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A5E53F9-994E-4A90-B66E-FC0BB566C23E}|StartUp\\StartUp.csproj|solutionrelative:startup\\services\\dummyemailsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2A5E53F9-994E-4A90-B66E-FC0BB566C23E}|StartUp\\StartUp.csproj|c:\\users\\nour_\\source\\repos\\startup.api\\startup\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{2A5E53F9-994E-4A90-B66E-FC0BB566C23E}|StartUp\\StartUp.csproj|solutionrelative:startup\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2A5E53F9-994E-4A90-B66E-FC0BB566C23E}|StartUp\\StartUp.csproj|c:\\users\\nour_\\source\\repos\\startup.api\\startup\\models\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A5E53F9-994E-4A90-B66E-FC0BB566C23E}|StartUp\\StartUp.csproj|solutionrelative:startup\\models\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2A5E53F9-994E-4A90-B66E-FC0BB566C23E}|StartUp\\StartUp.csproj|c:\\users\\nour_\\source\\repos\\startup.api\\startup\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2A5E53F9-994E-4A90-B66E-FC0BB566C23E}|StartUp\\StartUp.csproj|solutionrelative:startup\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DummyEmailSender.cs",
+              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\StartUp.API\\StartUp\\Services\\DummyEmailSender.cs",
+              "RelativeDocumentMoniker": "StartUp\\Services\\DummyEmailSender.cs",
+              "ToolTip": "C:\\Users\\nour_\\source\\repos\\StartUp.API\\StartUp\\Services\\DummyEmailSender.cs",
+              "RelativeToolTip": "StartUp\\Services\\DummyEmailSender.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T09:02:57.064Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\StartUp.API\\StartUp\\Program.cs",
+              "RelativeDocumentMoniker": "StartUp\\Program.cs",
+              "ToolTip": "C:\\Users\\nour_\\source\\repos\\StartUp.API\\StartUp\\Program.cs",
+              "RelativeToolTip": "StartUp\\Program.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAwwBcAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T08:46:36.864Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\StartUp.API\\StartUp\\appsettings.json",
+              "RelativeDocumentMoniker": "StartUp\\appsettings.json",
+              "ToolTip": "C:\\Users\\nour_\\source\\repos\\StartUp.API\\StartUp\\appsettings.json",
+              "RelativeToolTip": "StartUp\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-08-30T08:45:16.917Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\StartUp.API\\StartUp\\Models\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "StartUp\\Models\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\nour_\\source\\repos\\StartUp.API\\StartUp\\Models\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "StartUp\\Models\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T08:44:20.691Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\StartUp.API\\StartUp\\Models\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "StartUp\\Models\\ApplicationUser.cs",
+              "ToolTip": "C:\\Users\\nour_\\source\\repos\\StartUp.API\\StartUp\\Models\\ApplicationUser.cs",
+              "RelativeToolTip": "StartUp\\Models\\ApplicationUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T08:35:55.053Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
