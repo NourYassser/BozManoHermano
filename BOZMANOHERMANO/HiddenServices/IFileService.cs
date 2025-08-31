@@ -9,13 +9,13 @@
         public string UploadPPAsync(IFormFile file, string folderName)
         {
             if (file == null || file.Length == 0)
-                throw new ArgumentException("No file uploaded.");
+                return null;
 
-            if (Path.GetExtension(file.FileName).ToLower() != ".jpg"
-                || Path.GetExtension(file.FileName).ToLower() != ".jpeg"
-                || Path.GetExtension(file.FileName).ToLower() != ".png")
+            var extension = Path.GetExtension(file.FileName).ToLower();
 
-                throw new ArgumentException("Only JPG/JPEG/PNG Pictures are allowed.");
+            if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
+                return "Only JPG, JPEG, or PNG pictures are allowed.";
+
 
             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
             Directory.CreateDirectory(uploadsFolder);

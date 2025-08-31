@@ -1,9 +1,57 @@
 [
   {
+    "ContainingType": "BOZMANOHERMANO.Controllers.FollowController",
+    "Method": "Follow",
+    "RelativePath": "api/Follow/Follow",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userFollow",
+        "Type": "BOZMANOHERMANO.Dtos.UserFollowDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.FollowController",
+    "Method": "CheckFollowers",
+    "RelativePath": "api/Follow/GetFollowers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.FollowController",
+    "Method": "UnFollow",
+    "RelativePath": "api/Follow/UnFollow",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "followedId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "StartUp.Controllers.UserCredentialsController",
     "Method": "EditUserCredentials",
     "RelativePath": "api/UserCredentials/EditCredentials",
-    "HttpMethod": "PUT",
+    "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -24,7 +72,7 @@
       },
       {
         "Name": "HeaderPath",
-        "Type": "System.String",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
       },
       {

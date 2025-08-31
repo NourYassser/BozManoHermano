@@ -13,7 +13,7 @@
         public string UserName { get; set; } = string.Empty;
         public string TagName { get; set; } = string.Empty;
         public IFormFile? ProfilePicPath { get; set; }
-        public string? HeaderPath { get; set; } = string.Empty;
+        public IFormFile? HeaderPath { get; set; }
         public string? Bio { get; set; } = string.Empty;
     }
 }

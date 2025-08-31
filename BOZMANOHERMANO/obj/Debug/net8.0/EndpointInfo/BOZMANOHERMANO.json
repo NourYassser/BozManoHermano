@@ -339,6 +339,79 @@
         }
       }
     },
+    "/api/Follow/GetFollowers": {
+      "get": {
+        "tags": [
+          "Follow"
+        ],
+        "parameters": [
+          {
+            "name": "userName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Follow/Follow": {
+      "post": {
+        "tags": [
+          "Follow"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFollowDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFollowDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFollowDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Follow/UnFollow": {
+      "delete": {
+        "tags": [
+          "Follow"
+        ],
+        "parameters": [
+          {
+            "name": "followedId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/UserCredentials/GetCredentials": {
       "get": {
         "tags": [
@@ -352,7 +425,7 @@
       }
     },
     "/api/UserCredentials/EditCredentials": {
-      "put": {
+      "patch": {
         "tags": [
           "UserCredentials"
         ],
@@ -373,7 +446,8 @@
                     "format": "binary"
                   },
                   "HeaderPath": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "binary"
                   },
                   "Bio": {
                     "type": "string"
@@ -707,6 +781,16 @@
           },
           "isMachineRemembered": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserFollowDto": {
+        "type": "object",
+        "properties": {
+          "followedId": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

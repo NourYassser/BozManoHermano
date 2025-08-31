@@ -27,13 +27,10 @@ namespace StartUp.Controllers
             return Ok(userCredentials);
         }
 
-        [HttpPut("EditCredentials")]
+        [HttpPatch("EditCredentials")]
         public IActionResult EditUserCredentials([FromForm] EditUserDto dto)
         {
-            if (dto.ProfilePicPath == null || dto.ProfilePicPath.Length == 0)
-                return Ok("No file uploaded.");
-
-            _userService.EditUserCredentials(dto, dto.ProfilePicPath);
+            _userService.EditUserCredentials(dto, dto.ProfilePicPath, dto.HeaderPath);
             return Ok("User credentials updated successfully");
         }
     }

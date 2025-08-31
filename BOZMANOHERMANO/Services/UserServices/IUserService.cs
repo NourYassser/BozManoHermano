@@ -8,7 +8,7 @@ namespace StartUp.Services.UserServices
     {
         UserDto GetUserCredentials();
 
-        void EditUserCredentials(EditUserDto dto, IFormFile file);
+        void EditUserCredentials(EditUserDto dto, IFormFile profile, IFormFile header);
     }
     public class UserService : IUserService
     {
@@ -43,21 +43,21 @@ namespace StartUp.Services.UserServices
                 Bio = user.Bio
             };
         }
-        public void EditUserCredentials(EditUserDto dto, IFormFile file)
+        public void EditUserCredentials(EditUserDto dto, IFormFile profile, IFormFile header)
         {
             var userIdFromToken = _userContext.GetUserId();
 
             var user = _repo.GetUserCredentials(userIdFromToken);
             if (user == null) return;
 
-            var filePath = _fileService.UploadPPAsync(file, "Uploads/PPs");
+            var ProfilePath = _fileService.UploadPPAsync(profile, "Uploads/PPs");
+            var HeaderPath = _fileService.UploadPPAsync(header, "Uploads/Heads");
 
-
-            user.UserName = dto.UserName;
-            user.TagName = dto.TagName;
-            user.ProfilePicPath = filePath;
-            user.HeaderPath = dto.HeaderPath;
-            user.Bio = dto.Bio;
+            user.UserName = dto.UserName ?? user.UserName;
+            user.TagName = dto.TagName ?? user.TagName;
+            user.ProfilePicPath = ProfilePath ?? user.ProfilePicPath;
+            user.HeaderPath = HeaderPath ?? user.HeaderPath;
+            user.Bio = dto.Bio ?? user.Bio;
 
             _repo.EditUserCredentials(user);
         }

@@ -12,8 +12,8 @@ using StartUp.Models.Data;
 namespace StartUp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250830104723_AddedUserContext1")]
-    partial class AddedUserContext1
+    [Migration("20250831111312_FollowSystem")]
+    partial class FollowSystem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,27 @@ namespace StartUp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BOZMANOHERMANO.Models.UserFollow", b =>
+                {
+                    b.Property<string>("FollowerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FollowedId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("FollowedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("FollowerId", "FollowedId");
+
+                    b.HasIndex("FollowedId");
+
+                    b.ToTable("UserFollows");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -180,12 +201,6 @@ namespace StartUp.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Followers")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Following")
-                        .HasColumnType("int");
-
                     b.Property<string>("HeaderPath")
                         .HasColumnType("nvarchar(max)");
 
@@ -280,6 +295,25 @@ namespace StartUp.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("BOZMANOHERMANO.Models.UserFollow", b =>
+                {
+                    b.HasOne("StartUp.Models.ApplicationUser", "Followed")
+                        .WithMany("Followers")
+                        .HasForeignKey("FollowedId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("StartUp.Models.ApplicationUser", "Follower")
+                        .WithMany("Followings")
+                        .HasForeignKey("FollowerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Followed");
+
+                    b.Navigation("Follower");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -344,6 +378,10 @@ namespace StartUp.Migrations
 
             modelBuilder.Entity("StartUp.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Followers");
+
+                    b.Navigation("Followings");
+
                     b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
