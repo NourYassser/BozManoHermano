@@ -140,3 +140,4 @@ C:\Users\nour_\source\repos\BOZMANOHERMANO\BOZMANOHERMANO\obj\Debug\net8.0\refin
 C:\Users\nour_\source\repos\BOZMANOHERMANO\BOZMANOHERMANO\obj\Debug\net8.0\BOZMANOHERMANO.pdb
 C:\Users\nour_\source\repos\BOZMANOHERMANO\BOZMANOHERMANO\obj\Debug\net8.0\BOZMANOHERMANO.genruntimeconfig.cache
 C:\Users\nour_\source\repos\BOZMANOHERMANO\BOZMANOHERMANO\obj\Debug\net8.0\ref\BOZMANOHERMANO.dll
+C:\Users\nour_\source\repos\BOZMANOHERMANO\BOZMANOHERMANO\bin\Debug\net8.0\BOZMANOHERMANO.staticwebassets.runtime.json

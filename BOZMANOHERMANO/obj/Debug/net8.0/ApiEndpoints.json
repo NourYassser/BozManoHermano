@@ -33,6 +33,22 @@
   },
   {
     "ContainingType": "BOZMANOHERMANO.Controllers.FollowController",
+    "Method": "CheckFollowing",
+    "RelativePath": "api/Follow/GetFollowing",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.FollowController",
     "Method": "UnFollow",
     "RelativePath": "api/Follow/UnFollow",
     "HttpMethod": "DELETE",
@@ -42,6 +58,53 @@
       {
         "Name": "followedId",
         "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
+    "Method": "GetFollowingPosts",
+    "RelativePath": "api/Post/GetFollowingPosts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
+    "Method": "GetPosts",
+    "RelativePath": "api/Post/GetPosts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
+    "Method": "Post",
+    "RelativePath": "api/Post/Post",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Content",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ImagePath",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
       }
     ],

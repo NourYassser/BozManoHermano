@@ -1,4 +1,5 @@
 using BOZMANOHERMANO.Repo;
+using BOZMANOHERMANO.Services.PostServices;
 using BOZMANOHERMANO.Services.UserFollowServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -24,8 +25,13 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, DummyEmailSender>()
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IUserContext, UserContext>();
+
+builder.Services.AddScoped<IPostService, PostService>();
+
+//Adding Posts Repository
 builder.Services.AddScoped<IUserFollow, UserFollowRepo>();
 builder.Services.AddScoped<IUserFollowService, UserFollowService>();
+builder.Services.AddScoped<IPostsRepo, PostsRepo>();
 
 
 //Adding Repository
