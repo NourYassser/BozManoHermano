@@ -11,6 +11,11 @@ namespace BOZMANOHERMANO.Services.PostServices
         List<PostDto> GetFollowingPosts();
 
         void Post(AddPostDto post);
+        void DeletePost(int id);
+
+        void Comment(CommentDto comments);
+        void DeleteComment(int id);
+
     }
     public class PostService : IPostService
     {
@@ -33,12 +38,13 @@ namespace BOZMANOHERMANO.Services.PostServices
                 ImagePath = p.ImagePath,
                 Likes = p.Likes,
                 Retweets = p.Retweets,
-                Comments = p.Comments,
+                Comments = p.CommentList.Count,
                 CommentList = p.CommentList?.Select(c => new CommentsDto
                 {
+                    Id = c.Id,
                     UserId = c.UserId,
-                    UserName = c.UserName,
-                    TagName = c.TagName,
+                    UserName = c.User.UserName,
+                    TagName = c.User.TagName,
                     Content = c.Content,
                     CreatedAt = c.CreatedAt
                 }).ToList()
@@ -60,12 +66,13 @@ namespace BOZMANOHERMANO.Services.PostServices
                 ImagePath = p.ImagePath,
                 Likes = p.Likes,
                 Retweets = p.Retweets,
-                Comments = p.Comments,
+                Comments = p.CommentList.Count,
                 CommentList = p.CommentList?.Select(c => new CommentsDto
                 {
+                    Id = c.Id,
                     UserId = c.UserId,
-                    UserName = c.UserName,
-                    TagName = c.TagName,
+                    UserName = c.User.UserName,
+                    TagName = c.User.TagName,
                     Content = c.Content,
                     CreatedAt = c.CreatedAt
                 }).ToList()
@@ -87,6 +94,35 @@ namespace BOZMANOHERMANO.Services.PostServices
             };
             _postsRepo.Post(post);
         }
+
+        public void DeletePost(int id)
+        {
+            var userId = _userContext.GetUserId();
+
+            _postsRepo.DeletePost(userId, id);
+        }
+
+        public void Comment(CommentDto comments)
+        {
+            var userId = _userContext.GetUserId();
+
+            var entity = new Comments()
+            {
+                UserId = userId,
+                PostId = comments.PostId,
+                Content = comments.Content,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _postsRepo.Comment(entity);
+        }
+        public void DeleteComment(int id)
+        {
+            var userId = _userContext.GetUserId();
+
+            _postsRepo.DeleteComment(userId, id);
+        }
+
         string? SaveImage(IFormFile image)
         {
             if (image == null || image.Length == 0) return null;

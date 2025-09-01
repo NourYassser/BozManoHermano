@@ -33,5 +33,27 @@ namespace BOZMANOHERMANO.Controllers
             _postService.Post(post);
             return Ok();
         }
+
+        [HttpDelete("DeletePost")]
+        public IActionResult DeletePost(int id)
+        {
+            _postService.DeletePost(id);
+            return Ok();
+        }
+
+
+        [HttpPost("Comment")]
+        public IActionResult Comment(CommentDto comment)
+        {
+            _postService.Comment(comment);
+            return Ok();
+        }
+
+        [HttpDelete("DeleteComment")]
+        public IActionResult DeleteComment(int id)
+        {
+            _postService.DeleteComment(id);
+            return Ok();
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace StartUp.Models
 
         public ICollection<UserFollow> Followings { get; set; } = new HashSet<UserFollow>();
         public ICollection<UserFollow> Followers { get; set; } = new HashSet<UserFollow>();
+        public ICollection<Comments> Comments { get; set; } = new HashSet<Comments>();
     }
 }

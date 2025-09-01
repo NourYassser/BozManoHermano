@@ -17,11 +17,10 @@
     {
         public int Id { get; set; }
         public string UserId { get; set; } = string.Empty;
-        public string UserName { get; set; } = string.Empty;
-        public string TagName { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public int PostId { get; set; }
         public Posts? Post { get; set; }
+        public ApplicationUser? User { get; set; }
     }
 }

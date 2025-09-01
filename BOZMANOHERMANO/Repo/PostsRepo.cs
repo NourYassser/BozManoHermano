@@ -11,6 +11,10 @@ namespace BOZMANOHERMANO.Repo
         List<Posts> GetFollowingPosts(List<string> followingList);
 
         void Post(Posts post);
+        void DeletePost(string userId, int id);
+
+        void Comment(Comments comments);
+        void DeleteComment(string userId, int id);
     }
     public class PostsRepo : IPostsRepo
     {
@@ -34,23 +38,47 @@ namespace BOZMANOHERMANO.Repo
             if (user == null) return new List<Posts>();
             return _context.Posts
                 .Where(p => p.UserId == user.Id)
-                .Include(List => List.CommentList)
-                .Include(username => username.User)
+                .Include(p => p.User)
+                .Include(p => p.CommentList)
+                     .ThenInclude(c => c.User)
                 .OrderByDescending(p => p.CreatedAt)
+                .AsNoTracking()
                 .ToList();
         }
         public List<Posts> GetFollowingPosts(List<string> followingList)
         {
             return _context.Posts
                 .Where(p => followingList.Contains(p.UserId))
+                .Include(p => p.User)
                 .Include(List => List.CommentList)
-                .Include(username => username.User)
+                    .ThenInclude(c => c.User)
                 .OrderByDescending(p => p.CreatedAt)
                 .ToList();
         }
         public void Post(Posts post)
         {
             _context.Posts.Add(post);
+            _context.SaveChanges();
+        }
+
+        public void DeletePost(string userId, int id)
+        {
+            var ent = _context.Posts.FirstOrDefault(p => p.Id == id && p.UserId == userId);
+            if (ent != null)
+                _context.Posts.Remove(ent);
+            _context.SaveChanges();
+        }
+
+        public void Comment(Comments comments)
+        {
+            _context.Comments.Add(comments);
+            _context.SaveChanges();
+        }
+        public void DeleteComment(string userId, int id)
+        {
+            var ent = _context.Comments.FirstOrDefault(p => p.Id == id && p.UserId == userId);
+            if (ent != null)
+                _context.Comments.Remove(ent);
             _context.SaveChanges();
         }
     }
