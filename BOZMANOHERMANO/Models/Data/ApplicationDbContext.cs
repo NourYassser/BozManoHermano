@@ -29,7 +29,11 @@ namespace StartUp.Models.Data
         }
 
         public DbSet<Posts> Posts { get; set; }
+
         public DbSet<Comments> Comments { get; set; }
+        public DbSet<Likes> Likes { get; set; }
+        public DbSet<Retweets> Retweets { get; set; }
+
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<UserFollow> UserFollows { get; set; }
     }

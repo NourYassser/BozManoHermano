@@ -14,6 +14,7 @@ namespace BOZMANOHERMANO.Controllers
             _postService = postService;
         }
 
+        #region PostController
         [HttpGet("GetPosts")]
         public IActionResult GetPosts(string username)
         {
@@ -40,8 +41,10 @@ namespace BOZMANOHERMANO.Controllers
             _postService.DeletePost(id);
             return Ok();
         }
+        #endregion
 
 
+        #region CommentController
         [HttpPost("Comment")]
         public IActionResult Comment(CommentDto comment)
         {
@@ -55,5 +58,38 @@ namespace BOZMANOHERMANO.Controllers
             _postService.DeleteComment(id);
             return Ok();
         }
+        #endregion
+
+
+        #region LikeController
+        [HttpGet("GetPostLikes")]
+        public IActionResult GetPostLikes(int postid)
+        {
+            return Ok(_postService.PostLikes(postid));
+        }
+
+        [HttpPost("Like")]
+        public IActionResult Like(int postid)
+        {
+            _postService.Like(postid);
+            return Ok();
+        }
+        #endregion
+
+
+        #region RetweetController
+        [HttpGet("GetPostRetweets")]
+        public IActionResult GetPostRetweets(int postid)
+        {
+            return Ok(_postService.PostRetweets(postid));
+        }
+
+        [HttpPost("Retweet")]
+        public IActionResult Retweet(int postid)
+        {
+            _postService.Retweet(postid);
+            return Ok();
+        }
+        #endregion
     }
 }

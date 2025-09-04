@@ -13,6 +13,12 @@ namespace BOZMANOHERMANO.Services.PostServices
         void Post(AddPostDto post);
         void DeletePost(int id);
 
+        List<LikesDto> PostLikes(int postid);
+        void Like(int postid);
+
+        List<RetweetsDto> PostRetweets(int postid);
+        void Retweet(int postid);
+
         void Comment(CommentDto comments);
         void DeleteComment(int id);
 
@@ -26,19 +32,38 @@ namespace BOZMANOHERMANO.Services.PostServices
             _postsRepo = postsRepo;
             _userContext = userContext;
         }
+
+        #region PostService
         public List<PostDto> GetPosts(string username)
         {
             var posts = _postsRepo.GetPosts(username);
             return posts.Select(p => new PostDto
             {
                 UserId = p.UserId,
-                TagName = p.User.TagName,
+                CreatedDate = p.CreatedAt,
                 UserName = p.User.UserName,
+                TagName = p.User.TagName,
                 Content = p.Content,
                 ImagePath = p.ImagePath,
-                Likes = p.Likes,
-                Retweets = p.Retweets,
+                Likes = p.LikesList.Count,
+                Retweets = p.RetweetsList.Count,
                 Comments = p.CommentList.Count,
+                LikesDto = p.LikesList?.Select(c => new LikesDto
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    UserName = c.User.UserName,
+                    TagName = c.User.TagName,
+                    PostId = c.PostId
+                }).ToList(),
+                RetweetsDto = p.RetweetsList?.Select(c => new RetweetsDto
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    UserName = c.User.UserName,
+                    TagName = c.User.TagName,
+                    PostId = c.PostId
+                }).ToList(),
                 CommentList = p.CommentList?.Select(c => new CommentsDto
                 {
                     Id = c.Id,
@@ -60,13 +85,30 @@ namespace BOZMANOHERMANO.Services.PostServices
             return posts.Select(p => new PostDto
             {
                 UserId = p.UserId,
-                TagName = p.User.TagName,
+                CreatedDate = p.CreatedAt,
                 UserName = p.User.UserName,
+                TagName = p.User.TagName,
                 Content = p.Content,
                 ImagePath = p.ImagePath,
-                Likes = p.Likes,
-                Retweets = p.Retweets,
+                Likes = p.LikesList.Count,
+                Retweets = p.RetweetsList.Count,
                 Comments = p.CommentList.Count,
+                LikesDto = p.LikesList?.Select(c => new LikesDto
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    UserName = c.User.UserName,
+                    TagName = c.User.TagName,
+                    PostId = c.PostId
+                }).ToList(),
+                RetweetsDto = p.RetweetsList?.Select(c => new RetweetsDto
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    UserName = c.User.UserName,
+                    TagName = c.User.TagName,
+                    PostId = c.PostId
+                }).ToList(),
                 CommentList = p.CommentList?.Select(c => new CommentsDto
                 {
                     Id = c.Id,
@@ -101,7 +143,9 @@ namespace BOZMANOHERMANO.Services.PostServices
 
             _postsRepo.DeletePost(userId, id);
         }
+        #endregion
 
+        #region CommentService
         public void Comment(CommentDto comments)
         {
             var userId = _userContext.GetUserId();
@@ -122,6 +166,54 @@ namespace BOZMANOHERMANO.Services.PostServices
 
             _postsRepo.DeleteComment(userId, id);
         }
+        #endregion
+
+        #region LikeService
+        public List<LikesDto> PostLikes(int postid)
+        {
+            var likes = _postsRepo.PostLikes(postid);
+            return likes.Select(p => new LikesDto
+            {
+                Id = p.Id,
+                PostId = p.PostId,
+                UserId = p.UserId,
+                UserName = p.User.UserName,
+                TagName = p.User.TagName
+            }).ToList();
+        }
+
+        public void Like(int postid)
+        {
+            _postsRepo.Like(new Likes
+            {
+                PostId = postid,
+                UserId = _userContext.GetUserId(),
+            });
+        }
+        #endregion
+
+        #region RetweetService
+        public List<RetweetsDto> PostRetweets(int postid)
+        {
+            var likes = _postsRepo.PostRetweets(postid);
+            return likes.Select(p => new RetweetsDto
+            {
+                Id = p.Id,
+                PostId = p.PostId,
+                UserId = p.UserId,
+                UserName = p.User.UserName,
+                TagName = p.User.TagName
+            }).ToList();
+        }
+        public void Retweet(int postid)
+        {
+            _postsRepo.Retweet(new Retweets
+            {
+                PostId = postid,
+                UserId = _userContext.GetUserId(),
+            });
+        }
+        #endregion
 
         string? SaveImage(IFormFile image)
         {

@@ -123,6 +123,38 @@
   },
   {
     "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
+    "Method": "GetPostLikes",
+    "RelativePath": "api/Post/GetPostLikes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postid",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
+    "Method": "GetPostRetweets",
+    "RelativePath": "api/Post/GetPostRetweets",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postid",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
     "Method": "GetPosts",
     "RelativePath": "api/Post/GetPosts",
     "HttpMethod": "GET",
@@ -132,6 +164,22 @@
       {
         "Name": "username",
         "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
+    "Method": "Like",
+    "RelativePath": "api/Post/Like",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postid",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],
@@ -153,6 +201,22 @@
       {
         "Name": "ImagePath",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
+    "Method": "Retweet",
+    "RelativePath": "api/Post/Retweet",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postid",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],
