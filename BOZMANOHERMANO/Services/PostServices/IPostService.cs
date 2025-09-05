@@ -10,17 +10,17 @@ namespace BOZMANOHERMANO.Services.PostServices
         List<PostDto> GetPosts(string username);
         List<PostDto> GetFollowingPosts();
 
-        void Post(AddPostDto post);
-        void DeletePost(int id);
+        string Post(AddPostDto post);
+        string DeletePost(int id);
 
         List<LikesDto> PostLikes(int postid);
-        void Like(int postid);
+        string Like(int postid);
 
         List<RetweetsDto> PostRetweets(int postid);
-        void Retweet(int postid);
+        string Retweet(int postid);
 
-        void Comment(CommentDto comments);
-        void DeleteComment(int id);
+        string Comment(CommentDto comments);
+        string DeleteComment(int id);
 
     }
     public class PostService : IPostService
@@ -120,7 +120,7 @@ namespace BOZMANOHERMANO.Services.PostServices
                 }).ToList()
             }).ToList();
         }
-        public void Post(AddPostDto postDto)
+        public string Post(AddPostDto postDto)
         {
             var userId = _userContext.GetUserId();
 
@@ -134,19 +134,19 @@ namespace BOZMANOHERMANO.Services.PostServices
                 CreatedAt = DateTime.UtcNow,
                 UserId = userId
             };
-            _postsRepo.Post(post);
+            return _postsRepo.Post(post);
         }
 
-        public void DeletePost(int id)
+        public string DeletePost(int id)
         {
             var userId = _userContext.GetUserId();
 
-            _postsRepo.DeletePost(userId, id);
+            return _postsRepo.DeletePost(userId, id);
         }
         #endregion
 
         #region CommentService
-        public void Comment(CommentDto comments)
+        public string Comment(CommentDto comments)
         {
             var userId = _userContext.GetUserId();
 
@@ -158,13 +158,13 @@ namespace BOZMANOHERMANO.Services.PostServices
                 CreatedAt = DateTime.UtcNow
             };
 
-            _postsRepo.Comment(entity);
+            return _postsRepo.Comment(entity);
         }
-        public void DeleteComment(int id)
+        public string DeleteComment(int id)
         {
             var userId = _userContext.GetUserId();
 
-            _postsRepo.DeleteComment(userId, id);
+            return _postsRepo.DeleteComment(userId, id);
         }
         #endregion
 
@@ -182,9 +182,9 @@ namespace BOZMANOHERMANO.Services.PostServices
             }).ToList();
         }
 
-        public void Like(int postid)
+        public string Like(int postid)
         {
-            _postsRepo.Like(new Likes
+            return _postsRepo.Like(new Likes
             {
                 PostId = postid,
                 UserId = _userContext.GetUserId(),
@@ -205,9 +205,9 @@ namespace BOZMANOHERMANO.Services.PostServices
                 TagName = p.User.TagName
             }).ToList();
         }
-        public void Retweet(int postid)
+        public string Retweet(int postid)
         {
-            _postsRepo.Retweet(new Retweets
+            return _postsRepo.Retweet(new Retweets
             {
                 PostId = postid,
                 UserId = _userContext.GetUserId(),

@@ -10,8 +10,7 @@ namespace BOZMANOHERMANO.Repo
         List<UserFollow> GetUserFollowing(string userName);
         int GetUserFollowersCount(string userId);
 
-        void Follow(UserFollow userFollow);
-        void UnFollow(string userId, string followerId);
+        string Follow(UserFollow userFollow);
     }
 
     public class UserFollowRepo : IUserFollow
@@ -43,19 +42,31 @@ namespace BOZMANOHERMANO.Repo
             return count.Count;
         }
 
-        public void Follow(UserFollow userFollow)
+        public string Follow(UserFollow userFollow)
         {
+            if (userFollow.FollowerId == userFollow.FollowedId)
+                return "You can't follow yourself, dummy XD";
+
+            var toBeRemoved = _context.UserFollows
+                .FirstOrDefault(p => p.FollowedId == userFollow.FollowedId
+                && p.FollowerId == userFollow.FollowerId);
+
+            var userName = _context.ApplicationUsers
+                .Where(p => p.Id == userFollow.FollowedId)
+                .Select(u => u.UserName)
+                .FirstOrDefault();
+
+            if (toBeRemoved != null)
+            {
+                _context.UserFollows.Remove(toBeRemoved);
+                _context.SaveChanges();
+
+                return $"You have unfollowed, {userName}";
+            }
             _context.UserFollows.Add(userFollow);
             _context.SaveChanges();
-        }
-        public void UnFollow(string userId, string followerId)
-        {
-            var toBeRemoved = _context.UserFollows
-                .FirstOrDefault(p => p.FollowedId == followerId
-                && p.FollowerId == userId);
 
-            _context.UserFollows.Remove(toBeRemoved);
-            _context.SaveChanges();
+            return $"You have followed, {userName}";
         }
 
     }

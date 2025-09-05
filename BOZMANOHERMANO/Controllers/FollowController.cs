@@ -1,5 +1,4 @@
-﻿using BOZMANOHERMANO.Dtos;
-using BOZMANOHERMANO.Services.UserFollowServices;
+﻿using BOZMANOHERMANO.Services.UserFollowServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,17 +29,10 @@ namespace BOZMANOHERMANO.Controllers
         }
 
         [HttpPost("Follow")]
-        public IActionResult Follow(UserFollowDto userFollow)
+        public IActionResult Follow(string FollowedId)
         {
-            _userFollowService.Follow(userFollow);
-            return Ok();
-        }
-
-        [HttpDelete("UnFollow")]
-        public IActionResult UnFollow(string followedId)
-        {
-            _userFollowService.UnFollow(followedId);
-            return Ok();
+            var x = _userFollowService.Follow(FollowedId);
+            return Ok(x);
         }
     }
 }

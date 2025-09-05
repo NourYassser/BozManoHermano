@@ -8,9 +8,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "userFollow",
-        "Type": "BOZMANOHERMANO.Dtos.UserFollowDto",
-        "IsRequired": true
+        "Name": "FollowedId",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -41,22 +41,6 @@
     "Parameters": [
       {
         "Name": "userName",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BOZMANOHERMANO.Controllers.FollowController",
-    "Method": "UnFollow",
-    "RelativePath": "api/Follow/UnFollow",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "followedId",
         "Type": "System.String",
         "IsRequired": false
       }

@@ -1,5 +1,4 @@
-﻿using BOZMANOHERMANO.Dtos;
-using BOZMANOHERMANO.Models;
+﻿using BOZMANOHERMANO.Models;
 using BOZMANOHERMANO.Repo;
 using StartUp.Dtos;
 using StartUp.HiddenServices;
@@ -12,8 +11,7 @@ namespace BOZMANOHERMANO.Services.UserFollowServices
         IEnumerable<UserDto> GetUserFollowing(string userName);
         int GetUserFollowersCount(string userName);
 
-        void Follow(UserFollowDto userFollow);
-        void UnFollow(string followedId);
+        string Follow(string FollowedId);
     }
     public class UserFollowService : IUserFollowService
     {
@@ -61,24 +59,17 @@ namespace BOZMANOHERMANO.Services.UserFollowServices
             return _repo.GetUserFollowersCount(userName);
         }
 
-        public void Follow(UserFollowDto userFollow)
+        public string Follow(string FollowedId)
         {
             var userID = _userContext.GetUserId();
 
             var follow = new UserFollow()
             {
-                FollowedId = userFollow.FollowedId,
+                FollowedId = FollowedId,
                 FollowerId = userID,
                 FollowedDate = DateTime.UtcNow.Date
             };
-            _repo.Follow(follow);
-        }
-
-        public void UnFollow(string followedId)
-        {
-            var userID = _userContext.GetUserId();
-
-            _repo.UnFollow(userID, followedId);
+            return _repo.Follow(follow);
         }
 
     }

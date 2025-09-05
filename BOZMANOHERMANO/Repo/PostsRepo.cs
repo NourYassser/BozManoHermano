@@ -12,17 +12,17 @@ namespace BOZMANOHERMANO.Repo
         List<Posts> GetPosts(string username);
         List<Posts> GetFollowingPosts(List<string> followingList);
 
-        void Post(Posts post);
-        void DeletePost(string userId, int id);
+        string Post(Posts post);
+        string DeletePost(string userId, int id);
 
         List<Likes> PostLikes(int postid);
-        void Like(Likes likes);
+        string Like(Likes likes);
 
         List<Retweets> PostRetweets(int postid);
-        void Retweet(Retweets retweets);
+        string Retweet(Retweets retweets);
 
-        void Comment(Comments comments);
-        void DeleteComment(string userId, int id);
+        string Comment(Comments comments);
+        string DeleteComment(string userId, int id);
     }
     public class PostsRepo : IPostsRepo
     {
@@ -84,33 +84,38 @@ namespace BOZMANOHERMANO.Repo
                 .ToList();
         }
 
-        public void Post(Posts post)
+        public string Post(Posts post)
         {
             _context.Posts.Add(post);
             _context.SaveChanges();
+
+            return "Post Added";
         }
 
-        public void DeletePost(string userId, int id)
+        public string DeletePost(string userId, int id)
         {
             var ent = _context.Posts.FirstOrDefault(p => p.Id == id && p.UserId == userId);
             if (ent != null)
                 _context.Posts.Remove(ent);
             _context.SaveChanges();
+            return "Post Deleted";
         }
         #endregion
 
         #region Comments
-        public void Comment(Comments comments)
+        public string Comment(Comments comments)
         {
             _context.Comments.Add(comments);
             _context.SaveChanges();
+            return "Comment Added";
         }
-        public void DeleteComment(string userId, int id)
+        public string DeleteComment(string userId, int id)
         {
             var ent = _context.Comments.FirstOrDefault(p => p.Id == id && p.UserId == userId);
             if (ent != null)
                 _context.Comments.Remove(ent);
             _context.SaveChanges();
+            return "Comment Deleted";
         }
         #endregion
 
@@ -123,22 +128,25 @@ namespace BOZMANOHERMANO.Repo
                 .ToList();
         }
 
-        public void Like(Likes likes)
+        public string Like(Likes likes)
         {
             var existingLike = _context.Likes
                 .FirstOrDefault(l => l.UserId == likes.UserId
                                                     && l.PostId == likes.PostId);
-
+            var x = "";
             if (existingLike != null)
             {
                 _context.Likes.Remove(existingLike);
+                x = "You unliked this post";
             }
             else
             {
                 _context.Likes.Add(likes);
+                x = "You liked this post";
             }
 
             _context.SaveChanges();
+            return x;
         }
 
         #endregion
@@ -152,22 +160,25 @@ namespace BOZMANOHERMANO.Repo
                 .ToList();
         }
 
-        public void Retweet(Retweets retweets)
+        public string Retweet(Retweets retweets)
         {
             var existingLike = _context.Retweets
                 .FirstOrDefault(l => l.UserId == retweets.UserId
                                                     && l.PostId == retweets.PostId);
-
+            var x = "";
             if (existingLike != null)
             {
                 _context.Retweets.Remove(existingLike);
+                x = "You unretweeted this post";
             }
             else
             {
                 _context.Retweets.Add(retweets);
+                x = "You retweeted this post";
             }
 
             _context.SaveChanges();
+            return x;
         }
         #endregion
     }

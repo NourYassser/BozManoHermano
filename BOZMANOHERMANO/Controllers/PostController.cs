@@ -31,15 +31,15 @@ namespace BOZMANOHERMANO.Controllers
         [HttpPost("Post")]
         public IActionResult Post(AddPostDto post)
         {
-            _postService.Post(post);
-            return Ok();
+            var x = _postService.Post(post);
+            return Ok(x);
         }
 
         [HttpDelete("DeletePost")]
         public IActionResult DeletePost(int id)
         {
-            _postService.DeletePost(id);
-            return Ok();
+            var x = _postService.DeletePost(id);
+            return Ok(x);
         }
         #endregion
 
@@ -48,15 +48,15 @@ namespace BOZMANOHERMANO.Controllers
         [HttpPost("Comment")]
         public IActionResult Comment(CommentDto comment)
         {
-            _postService.Comment(comment);
-            return Ok();
+            var x = _postService.Comment(comment);
+            return Ok(x);
         }
 
         [HttpDelete("DeleteComment")]
         public IActionResult DeleteComment(int id)
         {
-            _postService.DeleteComment(id);
-            return Ok();
+            var x = _postService.DeleteComment(id);
+            return Ok(x);
         }
         #endregion
 
@@ -71,8 +71,8 @@ namespace BOZMANOHERMANO.Controllers
         [HttpPost("Like")]
         public IActionResult Like(int postid)
         {
-            _postService.Like(postid);
-            return Ok();
+            var x = _postService.Like(postid);
+            return Ok(x);
         }
         #endregion
 
@@ -87,8 +87,8 @@ namespace BOZMANOHERMANO.Controllers
         [HttpPost("Retweet")]
         public IActionResult Retweet(int postid)
         {
-            _postService.Retweet(postid);
-            return Ok();
+            var x = _postService.Retweet(postid);
+            return Ok(x);
         }
         #endregion
     }

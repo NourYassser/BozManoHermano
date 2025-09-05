@@ -386,40 +386,9 @@
         "tags": [
           "Follow"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserFollowDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserFollowDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserFollowDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Follow/UnFollow": {
-      "delete": {
-        "tags": [
-          "Follow"
-        ],
         "parameters": [
           {
-            "name": "followedId",
+            "name": "FollowedId",
             "in": "query",
             "schema": {
               "type": "string"
@@ -1053,16 +1022,6 @@
           },
           "isMachineRemembered": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UserFollowDto": {
-        "type": "object",
-        "properties": {
-          "followedId": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false
