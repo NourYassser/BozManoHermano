@@ -339,6 +339,67 @@
         }
       }
     },
+    "/api/Dm/GetDm": {
+      "get": {
+        "tags": [
+          "Dm"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dm/OpenChat": {
+      "get": {
+        "tags": [
+          "Dm"
+        ],
+        "parameters": [
+          {
+            "name": "senderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dm/SendMessage": {
+      "post": {
+        "tags": [
+          "Dm"
+        ],
+        "parameters": [
+          {
+            "name": "message",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "recId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Follow/GetFollowers": {
       "get": {
         "tags": [

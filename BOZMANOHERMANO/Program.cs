@@ -1,4 +1,5 @@
 using BOZMANOHERMANO.Repo;
+using BOZMANOHERMANO.Services.DmServices;
 using BOZMANOHERMANO.Services.PostServices;
 using BOZMANOHERMANO.Services.UserFollowServices;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +27,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IUserContext, UserContext>();
 
+builder.Services.AddScoped<IUserDmService, UserDmService>();
+
 builder.Services.AddScoped<IPostService, PostService>();
 
 //Adding Posts Repository
@@ -36,6 +39,8 @@ builder.Services.AddScoped<IPostsRepo, PostsRepo>();
 
 //Adding Repository
 builder.Services.AddScoped<IUserRepo, UserRepo>();
+
+builder.Services.AddScoped<IUserDmRepo, UserDmRepo>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

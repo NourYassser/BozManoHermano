@@ -1,5 +1,52 @@
 [
   {
+    "ContainingType": "BOZMANOHERMANO.Controllers.DmController",
+    "Method": "GetDm",
+    "RelativePath": "api/Dm/GetDm",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.DmController",
+    "Method": "OpenChat",
+    "RelativePath": "api/Dm/OpenChat",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "senderId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.DmController",
+    "Method": "SendMessage",
+    "RelativePath": "api/Dm/SendMessage",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "message",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "recId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BOZMANOHERMANO.Controllers.FollowController",
     "Method": "Follow",
     "RelativePath": "api/Follow/Follow",

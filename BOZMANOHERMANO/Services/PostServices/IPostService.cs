@@ -122,8 +122,6 @@ namespace BOZMANOHERMANO.Services.PostServices
         }
         public string Post(AddPostDto postDto)
         {
-            var userId = _userContext.GetUserId();
-
             var post = new Posts
             {
                 Content = postDto.Content,
@@ -132,7 +130,7 @@ namespace BOZMANOHERMANO.Services.PostServices
                 Retweets = 0,
                 Comments = 0,
                 CreatedAt = DateTime.UtcNow,
-                UserId = userId
+                UserId = _userContext.GetUserId()
             };
             return _postsRepo.Post(post);
         }
@@ -148,11 +146,9 @@ namespace BOZMANOHERMANO.Services.PostServices
         #region CommentService
         public string Comment(CommentDto comments)
         {
-            var userId = _userContext.GetUserId();
-
             var entity = new Comments()
             {
-                UserId = userId,
+                UserId = _userContext.GetUserId(),
                 PostId = comments.PostId,
                 Content = comments.Content,
                 CreatedAt = DateTime.UtcNow
