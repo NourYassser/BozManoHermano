@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StartUp.Models.Data;
 
@@ -11,9 +12,11 @@ using StartUp.Models.Data;
 namespace StartUp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250911092335_SavedPostsAdded1")]
+    partial class SavedPostsAdded1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,6 +36,9 @@ namespace StartUp.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PostsId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("SaveDate")
                         .HasColumnType("datetime2");
 
@@ -42,7 +48,7 @@ namespace StartUp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("PostsId");
 
                     b.HasIndex("UserId");
 
@@ -429,9 +435,9 @@ namespace StartUp.Migrations
 
             modelBuilder.Entity("BOZMANOHERMANO.Models.SavedPosts", b =>
                 {
-                    b.HasOne("StartUp.Models.Posts", "Post")
+                    b.HasOne("StartUp.Models.Posts", "Posts")
                         .WithMany()
-                        .HasForeignKey("PostId")
+                        .HasForeignKey("PostsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -441,7 +447,7 @@ namespace StartUp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Post");
+                    b.Navigation("Posts");
 
                     b.Navigation("User");
                 });

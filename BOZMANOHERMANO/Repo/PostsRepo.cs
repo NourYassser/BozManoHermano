@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BOZMANOHERMANO.Models;
+using Microsoft.EntityFrameworkCore;
 using StartUp.Models;
 using StartUp.Models.Data;
 
@@ -23,6 +24,9 @@ namespace BOZMANOHERMANO.Repo
 
         string Comment(Comments comments);
         string DeleteComment(string userId, int id);
+
+        string Save(SavedPosts savedPosts);
+        List<SavedPosts> GetSavedPosts(string userId);
     }
     public class PostsRepo : IPostsRepo
     {
@@ -99,6 +103,47 @@ namespace BOZMANOHERMANO.Repo
                 _context.Posts.Remove(ent);
             _context.SaveChanges();
             return "Post Deleted";
+        }
+        #endregion
+
+        #region SavedPosts
+        public string Save(SavedPosts savedPosts)
+        {
+            var existingSave = _context.SavedPosts
+                .FirstOrDefault(sp => sp.UserId == savedPosts.UserId
+                                                    && sp.PostId == savedPosts.PostId);
+            var x = "";
+            if (existingSave != null)
+            {
+                _context.SavedPosts.Remove(existingSave);
+                x = "Post Unsaved";
+            }
+            else
+            {
+                _context.SavedPosts.Add(savedPosts);
+                x = "Post Saved";
+            }
+            _context.SaveChanges();
+            return x;
+        }
+        public List<SavedPosts> GetSavedPosts(string userId)
+        {
+            return _context.SavedPosts
+                .Where(sp => sp.UserId == userId)
+                .Include(sp => sp.User)
+                .Include(sp => sp.Post)
+                    .ThenInclude(p => p.User)
+                .Include(sp => sp.Post)
+                    .ThenInclude(p => p.LikesList)
+                        .ThenInclude(c => c.User)
+                .Include(sp => sp.Post)
+                    .ThenInclude(p => p.RetweetsList)
+                         .ThenInclude(c => c.User)
+                .Include(sp => sp.Post)
+                    .ThenInclude(p => p.CommentList)
+                        .ThenInclude(c => c.User)
+                .OrderByDescending(sp => sp.SaveDate)
+                .ToList();
         }
         #endregion
 

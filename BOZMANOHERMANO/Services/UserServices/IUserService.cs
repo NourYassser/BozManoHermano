@@ -7,6 +7,7 @@ namespace StartUp.Services.UserServices
     public interface IUserService
     {
         UserDto GetUserCredentials();
+        List<UserDto> SearchForUser(string searchTerm);
 
         void EditUserCredentials(EditUserDto dto, IFormFile profile, IFormFile header);
     }
@@ -60,6 +61,19 @@ namespace StartUp.Services.UserServices
             user.Bio = dto.Bio ?? user.Bio;
 
             _repo.EditUserCredentials(user);
+        }
+
+        public List<UserDto> SearchForUser(string searchTerm)
+        {
+            var user = _repo.SearchForUser(searchTerm);
+            return user.Select(u => new UserDto
+            {
+                UserName = u.UserName,
+                TagName = u.TagName,
+                ProfilePicPath = u.ProfilePicPath,
+                HeaderPath = u.HeaderPath,
+                Bio = u.Bio
+            }).ToList();
         }
     }
 }

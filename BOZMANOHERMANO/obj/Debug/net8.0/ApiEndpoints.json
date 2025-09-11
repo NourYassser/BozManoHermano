@@ -202,6 +202,16 @@
   },
   {
     "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
+    "Method": "GetSavedPosts",
+    "RelativePath": "api/Post/GetSavedPosts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
     "Method": "Like",
     "RelativePath": "api/Post/Like",
     "HttpMethod": "POST",
@@ -254,6 +264,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
+    "Method": "Save",
+    "RelativePath": "api/Post/Save",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "StartUp.Controllers.UserCredentialsController",
     "Method": "EditUserCredentials",
     "RelativePath": "api/UserCredentials/EditCredentials",
@@ -297,6 +323,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StartUp.Controllers.UserCredentialsController",
+    "Method": "SearchForUser",
+    "RelativePath": "api/UserCredentials/SearchForUser",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "searchTerm",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

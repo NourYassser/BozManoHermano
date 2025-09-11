@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StartUp.Models.Data;
 
@@ -11,9 +12,11 @@ using StartUp.Models.Data;
 namespace StartUp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250911085625_SavedPostsAdded")]
+    partial class SavedPostsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,8 +44,6 @@ namespace StartUp.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PostId");
 
                     b.HasIndex("UserId");
 
@@ -392,11 +393,16 @@ namespace StartUp.Migrations
                     b.Property<int>("Retweets")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SavedPostsId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SavedPostsId");
 
                     b.HasIndex("UserId");
 
@@ -429,19 +435,11 @@ namespace StartUp.Migrations
 
             modelBuilder.Entity("BOZMANOHERMANO.Models.SavedPosts", b =>
                 {
-                    b.HasOne("StartUp.Models.Posts", "Post")
-                        .WithMany()
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("StartUp.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Post");
 
                     b.Navigation("User");
                 });
@@ -575,6 +573,10 @@ namespace StartUp.Migrations
 
             modelBuilder.Entity("StartUp.Models.Posts", b =>
                 {
+                    b.HasOne("BOZMANOHERMANO.Models.SavedPosts", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("SavedPostsId");
+
                     b.HasOne("StartUp.Models.ApplicationUser", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
@@ -601,6 +603,11 @@ namespace StartUp.Migrations
                     b.Navigation("Post");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BOZMANOHERMANO.Models.SavedPosts", b =>
+                {
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("StartUp.Models.ApplicationUser", b =>

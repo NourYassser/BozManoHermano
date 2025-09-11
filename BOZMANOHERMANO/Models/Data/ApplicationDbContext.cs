@@ -29,6 +29,7 @@ namespace StartUp.Models.Data
         }
 
         public DbSet<Posts> Posts { get; set; }
+        public DbSet<SavedPosts> SavedPosts { get; set; }
 
         public DbSet<Comments> Comments { get; set; }
         public DbSet<Likes> Likes { get; set; }

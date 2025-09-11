@@ -33,5 +33,12 @@ namespace StartUp.Controllers
             _userService.EditUserCredentials(dto, dto.ProfilePicPath, dto.HeaderPath);
             return Ok("User credentials updated successfully");
         }
+
+        [HttpGet("SearchForUser")]
+        public IActionResult SearchForUser([FromQuery] string searchTerm)
+        {
+            var users = _userService.SearchForUser(searchTerm);
+            return Ok(users);
+        }
     }
 }

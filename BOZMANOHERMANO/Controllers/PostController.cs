@@ -44,6 +44,21 @@ namespace BOZMANOHERMANO.Controllers
         #endregion
 
 
+        #region SavedPostsController
+        [HttpPost("Save")]
+        public IActionResult Save(int postId)
+        {
+            var x = _postService.Save(postId);
+            return Ok(x);
+        }
+        [HttpGet("GetSavedPosts")]
+        public IActionResult GetSavedPosts()
+        {
+            return Ok(_postService.GetSavedPosts());
+        }
+        #endregion
+
+
         #region CommentController
         [HttpPost("Comment")]
         public IActionResult Comment(CommentDto comment)

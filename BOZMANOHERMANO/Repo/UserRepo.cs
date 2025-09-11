@@ -6,6 +6,7 @@ namespace StartUp.Repo
     public interface IUserRepo
     {
         ApplicationUser GetUserCredentials(string userId);
+        List<ApplicationUser> SearchForUser(string searchTerm, int pageNum = 1, int pageSize = 10);
 
         void EditUserCredentials(ApplicationUser User);
     }
@@ -27,5 +28,17 @@ namespace StartUp.Repo
             _context.SaveChanges();
         }
 
+        public List<ApplicationUser> SearchForUser(string searchTerm, int pageNum = 1, int pageSize = 10)
+        {
+            var query = _context.ApplicationUsers.AsQueryable();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(u => u.UserName.Contains(searchTerm) || u.Email.Contains(searchTerm));
+            }
+            return query
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+        }
     }
 }

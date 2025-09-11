@@ -1,4 +1,5 @@
 ﻿using BOZMANOHERMANO.Dtos;
+using BOZMANOHERMANO.Models;
 using BOZMANOHERMANO.Repo;
 using StartUp.HiddenServices;
 using StartUp.Models;
@@ -21,6 +22,9 @@ namespace BOZMANOHERMANO.Services.PostServices
 
         string Comment(CommentDto comments);
         string DeleteComment(int id);
+
+        string Save(int postId);
+        List<PostDto> GetSavedPosts();
 
     }
     public class PostService : IPostService
@@ -140,6 +144,65 @@ namespace BOZMANOHERMANO.Services.PostServices
             var userId = _userContext.GetUserId();
 
             return _postsRepo.DeletePost(userId, id);
+        }
+        #endregion
+
+        #region SaveService
+        public string Save(int postId)
+        {
+            var savedPost = new SavedPosts
+            {
+                PostId = postId,
+                UserId = _userContext.GetUserId(),
+                SaveDate = DateTime.UtcNow
+            };
+            return _postsRepo.Save(savedPost);
+        }
+        public List<PostDto> GetSavedPosts()
+        {
+            var userId = _userContext.GetUserId();
+            var savedPosts = _postsRepo.GetSavedPosts(userId);
+
+            return savedPosts.Select(sp => new PostDto
+            {
+                UserId = sp.Post.UserId,
+                CreatedDate = sp.SaveDate,
+                UserName = sp.Post.User.UserName,
+                TagName = sp.Post.User.TagName,
+                Content = sp.Post.Content,
+                ImagePath = sp.Post.ImagePath,
+                Likes = sp.Post.LikesList.Count,
+                Retweets = sp.Post.RetweetsList.Count,
+                Comments = sp.Post.CommentList.Count,
+
+                LikesDto = sp.Post.LikesList?.Select(c => new LikesDto
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    UserName = c.User.UserName,
+                    TagName = c.User.TagName,
+                    PostId = c.PostId
+                }).ToList(),
+
+                RetweetsDto = sp.Post.RetweetsList?.Select(c => new RetweetsDto
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    UserName = c.User.UserName,
+                    TagName = c.User.TagName,
+                    PostId = c.PostId
+                }).ToList(),
+
+                CommentList = sp.Post.CommentList?.Select(c => new CommentsDto
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    UserName = c.User.UserName,
+                    TagName = c.User.TagName,
+                    Content = c.Content,
+                    CreatedAt = c.CreatedAt
+                }).ToList()
+            }).ToList();
         }
         #endregion
 
