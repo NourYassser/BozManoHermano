@@ -19,6 +19,7 @@ namespace BOZMANOHERMANO.Services.PostServices
 
         List<RetweetsDto> PostRetweets(int postid);
         string Retweet(int postid);
+        string RetweetWithThoughts(RetweetWithThoughtsDto dto);
 
         string Comment(CommentDto comments);
         string DeleteComment(int id);
@@ -43,6 +44,7 @@ namespace BOZMANOHERMANO.Services.PostServices
             var posts = _postsRepo.GetPosts(username);
             return posts.Select(p => new PostDto
             {
+                Id = p.Id,
                 UserId = p.UserId,
                 CreatedDate = p.CreatedAt,
                 UserName = p.User.UserName,
@@ -88,6 +90,7 @@ namespace BOZMANOHERMANO.Services.PostServices
             var posts = _postsRepo.GetFollowingPosts(followingList);
             return posts.Select(p => new PostDto
             {
+                Id = p.Id,
                 UserId = p.UserId,
                 CreatedDate = p.CreatedAt,
                 UserName = p.User.UserName,
@@ -271,6 +274,15 @@ namespace BOZMANOHERMANO.Services.PostServices
                 PostId = postid,
                 UserId = _userContext.GetUserId(),
             });
+        }
+        public string RetweetWithThoughts(RetweetWithThoughtsDto dto)
+        {
+            var imgUrl = dto.ImagePath != null ? SaveImage(dto.ImagePath) : null;
+            return _postsRepo.RetweetWithThoughts(new Retweets
+            {
+                PostId = dto.PostId,
+                UserId = _userContext.GetUserId(),
+            }, dto.Content, imgUrl);
         }
         #endregion
 

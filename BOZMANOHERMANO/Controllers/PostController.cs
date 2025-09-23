@@ -105,6 +105,13 @@ namespace BOZMANOHERMANO.Controllers
             var x = _postService.Retweet(postid);
             return Ok(x);
         }
+
+        [HttpPost("RetweetWithThoughts")]
+        public IActionResult RetweetWithThoughts(RetweetWithThoughtsDto retweet)
+        {
+            var x = _postService.RetweetWithThoughts(retweet);
+            return Ok(x);
+        }
         #endregion
     }
 }

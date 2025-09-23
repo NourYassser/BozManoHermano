@@ -21,6 +21,7 @@ namespace BOZMANOHERMANO.Repo
 
         List<Retweets> PostRetweets(int postid);
         string Retweet(Retweets retweets);
+        string RetweetWithThoughts(Retweets retweets, string content, string? imgUrl);
 
         string Comment(Comments comments);
         string DeleteComment(string userId, int id);
@@ -222,6 +223,33 @@ namespace BOZMANOHERMANO.Repo
                 x = "You retweeted this post";
             }
 
+            _context.SaveChanges();
+            return x;
+        }
+        public string RetweetWithThoughts(Retweets retweets, string content, string? imgUrl)
+        {
+            var existingLike = _context.Retweets
+                .FirstOrDefault(l => l.UserId == retweets.UserId
+                                                    && l.PostId == retweets.PostId);
+            var x = "";
+            if (existingLike != null)
+            {
+                _context.Retweets.Remove(existingLike);
+                x = "You unretweeted this post";
+            }
+            else
+            {
+                _context.Retweets.Add(retweets);
+                var newPost = new Posts
+                {
+                    Content = content,
+                    UserId = retweets.UserId,
+                    CreatedAt = DateTime.UtcNow,
+                    ImagePath = imgUrl
+                };
+                _context.Posts.Add(newPost);
+                x = "You retweeted this post with your thoughts";
+            }
             _context.SaveChanges();
             return x;
         }

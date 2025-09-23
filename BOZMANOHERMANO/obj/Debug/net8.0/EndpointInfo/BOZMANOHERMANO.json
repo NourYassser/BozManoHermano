@@ -734,6 +734,55 @@
         }
       }
     },
+    "/api/Post/RetweetWithThoughts": {
+      "post": {
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "PostId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Content",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ImagePath": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "ImagePath": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/UserCredentials/GetCredentials": {
       "get": {
         "tags": [
