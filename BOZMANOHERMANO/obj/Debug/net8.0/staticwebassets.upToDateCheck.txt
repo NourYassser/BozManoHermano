@@ -1,2 +1,6 @@
 wwwroot\images\67b23cda-c71e-4fb0-b1fd-33a823276488_1660708609305.jpg
 wwwroot\images\7ab44384-cf2b-4f9d-875b-d6e51bbee881_1660708609305.jpg
+wwwroot\material\img\1660708609305.jpg
+wwwroot\material\img\1726138347782.jpg
+wwwroot\material\html\welcome_template.html
+wwwroot\material\html\reset_password_template.html

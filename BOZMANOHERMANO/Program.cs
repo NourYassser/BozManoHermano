@@ -2,7 +2,6 @@ using BOZMANOHERMANO.Repo;
 using BOZMANOHERMANO.Services.DmServices;
 using BOZMANOHERMANO.Services.PostServices;
 using BOZMANOHERMANO.Services.UserFollowServices;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StartUp.HiddenServices;
 using StartUp.Models;
@@ -22,7 +21,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddSingleton<IEmailSender<ApplicationUser>, DummyEmailSender>();
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IUserContext, UserContext>();
@@ -60,6 +59,18 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DefaultCorsPolicy", policy =>
+    {
+        policy.AllowAnyOrigin();
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+    });
+});
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -68,6 +79,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("DefaultCorsPolicy");
 
 app.UseHttpsRedirection();
 
@@ -77,5 +89,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapIdentityApi<ApplicationUser>();
+
 
 app.Run();

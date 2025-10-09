@@ -47,6 +47,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "BOZMANOHERMANO.Controllers.EmailController",
+    "Method": "SendEmail",
+    "RelativePath": "api/Email/SendEmail",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.EmailController",
+    "Method": "SendResetPasswordEmail",
+    "RelativePath": "api/Email/SendResetPasswordEmail",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "resetLink",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BOZMANOHERMANO.Controllers.FollowController",
     "Method": "Follow",
     "RelativePath": "api/Follow/Follow",
