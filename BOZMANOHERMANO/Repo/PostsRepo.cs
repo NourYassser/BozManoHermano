@@ -10,6 +10,9 @@ namespace BOZMANOHERMANO.Repo
         List<string> Following(string userId);
         List<string> Followers(string userId);
 
+        string GetPostUserId(int postId);
+
+        Posts GetPostById(int id);
         List<Posts> GetPosts(string username);
         List<Posts> GetFollowingPosts(List<string> followingList);
 
@@ -56,6 +59,25 @@ namespace BOZMANOHERMANO.Repo
         }
 
         #region Post
+        public string GetPostUserId(int postId)
+        {
+            var post = _context.Posts.FirstOrDefault(p => p.Id == postId);
+            return post != null ? post.UserId : string.Empty;
+        }
+
+        public Posts GetPostById(int id)
+        {
+            return _context.Posts
+                .Include(p => p.User)
+                .Include(p => p.LikesList)
+                    .ThenInclude(c => c.User)
+                .Include(p => p.CommentList)
+                    .ThenInclude(c => c.User)
+                .Include(p => p.RetweetsList)
+                     .ThenInclude(c => c.User)
+                .FirstOrDefault(p => p.Id == id);
+        }
+
         public List<Posts> GetPosts(string username)
         {
             var user = _context.Users.FirstOrDefault(u => u.UserName == username);

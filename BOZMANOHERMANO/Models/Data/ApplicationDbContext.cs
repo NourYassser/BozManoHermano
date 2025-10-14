@@ -39,5 +39,6 @@ namespace StartUp.Models.Data
         public DbSet<UserFollow> UserFollows { get; set; }
 
         public DbSet<UserDM> UserDM { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 }

@@ -8,6 +8,9 @@ namespace BOZMANOHERMANO.Services.PostServices
 {
     public interface IPostService
     {
+        string GetPostUserId(int postId);
+
+        PostDto GetPostById(int id);
         List<PostDto> GetPosts(string username);
         List<PostDto> GetFollowingPosts();
 
@@ -39,6 +42,55 @@ namespace BOZMANOHERMANO.Services.PostServices
         }
 
         #region PostService
+        public string GetPostUserId(int postId)
+        {
+            return _postsRepo.GetPostUserId(postId);
+        }
+
+        public PostDto GetPostById(int id)
+        {
+            var p = _postsRepo.GetPostById(id);
+            if (p == null) return null;
+            return new PostDto
+            {
+                Id = p.Id,
+                UserId = p.UserId,
+                CreatedDate = p.CreatedAt,
+                UserName = p.User.UserName,
+                TagName = p.User.TagName,
+                Content = p.Content,
+                ImagePath = p.ImagePath,
+                Likes = p.LikesList.Count,
+                Retweets = p.RetweetsList.Count,
+                Comments = p.CommentList.Count,
+                LikesDto = p.LikesList?.Select(c => new LikesDto
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    UserName = c.User.UserName,
+                    TagName = c.User.TagName,
+                    PostId = c.PostId
+                }).ToList(),
+                RetweetsDto = p.RetweetsList?.Select(c => new RetweetsDto
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    UserName = c.User.UserName,
+                    TagName = c.User.TagName,
+                    PostId = c.PostId
+                }).ToList(),
+                CommentList = p.CommentList?.Select(c => new CommentsDto
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    UserName = c.User.UserName,
+                    TagName = c.User.TagName,
+                    Content = c.Content,
+                    CreatedAt = c.CreatedAt
+                }).ToList()
+            };
+        }
+
         public List<PostDto> GetPosts(string username)
         {
             var posts = _postsRepo.GetPosts(username);

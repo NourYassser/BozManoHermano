@@ -63,27 +63,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BOZMANOHERMANO.Controllers.EmailController",
-    "Method": "SendResetPasswordEmail",
-    "RelativePath": "api/Email/SendResetPasswordEmail",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "resetLink",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "BOZMANOHERMANO.Controllers.FollowController",
     "Method": "Follow",
     "RelativePath": "api/Follow/Follow",
@@ -129,6 +108,32 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.NotificationsController",
+    "Method": "MarkAsRead",
+    "RelativePath": "api/Notifications/{id}/read",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.NotificationsController",
+    "Method": "GetNotifications",
+    "RelativePath": "api/Notifications/GetNotifications",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -187,6 +192,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
+    "Method": "GetPost",
+    "RelativePath": "api/Post/GetPost",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

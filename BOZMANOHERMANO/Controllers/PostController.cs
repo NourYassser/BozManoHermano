@@ -1,4 +1,5 @@
 ﻿using BOZMANOHERMANO.Dtos;
+using BOZMANOHERMANO.Services.Notifications;
 using BOZMANOHERMANO.Services.PostServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +10,21 @@ namespace BOZMANOHERMANO.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostService _postService;
-        public PostController(IPostService postService)
+        private readonly INotificationService _notificationService;
+        public PostController(IPostService postService,
+            INotificationService notificationService)
         {
             _postService = postService;
+            _notificationService = notificationService;
         }
 
         #region PostController
+        [HttpGet("GetPost")]
+        public IActionResult GetPost(int id)
+        {
+            return Ok(_postService.GetPostById(id));
+        }
+
         [HttpGet("GetPosts")]
         public IActionResult GetPosts(string username)
         {
@@ -61,9 +71,10 @@ namespace BOZMANOHERMANO.Controllers
 
         #region CommentController
         [HttpPost("Comment")]
-        public IActionResult Comment(CommentDto comment)
+        public async Task<IActionResult> Comment(CommentDto comment)
         {
             var x = _postService.Comment(comment);
+            await _notificationService.AddNotificationAsync(_postService.GetPostUserId(comment.PostId), "Comment");
             return Ok(x);
         }
 
@@ -84,9 +95,12 @@ namespace BOZMANOHERMANO.Controllers
         }
 
         [HttpPost("Like")]
-        public IActionResult Like(int postid)
+        public async Task<IActionResult> Like(int postid)
         {
             var x = _postService.Like(postid);
+
+            await _notificationService.AddNotificationAsync(_postService.GetPostUserId(postid), "Like", postid.ToString());
+
             return Ok(x);
         }
         #endregion
@@ -100,16 +114,22 @@ namespace BOZMANOHERMANO.Controllers
         }
 
         [HttpPost("Retweet")]
-        public IActionResult Retweet(int postid)
+        public async Task<IActionResult> Retweet(int postid)
         {
             var x = _postService.Retweet(postid);
+
+            await _notificationService.AddNotificationAsync(_postService.GetPostUserId(postid), "Retweet", postid.ToString());
+
             return Ok(x);
         }
 
         [HttpPost("RetweetWithThoughts")]
-        public IActionResult RetweetWithThoughts(RetweetWithThoughtsDto retweet)
+        public async Task<IActionResult> RetweetWithThoughts(RetweetWithThoughtsDto retweet)
         {
             var x = _postService.RetweetWithThoughts(retweet);
+
+            await _notificationService.AddNotificationAsync(_postService.GetPostUserId(retweet.PostId), "Retweet", retweet.PostId.ToString());
+
             return Ok(x);
         }
         #endregion

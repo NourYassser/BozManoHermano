@@ -1,5 +1,7 @@
+using BOZMANOHERMANO.Hub;
 using BOZMANOHERMANO.Repo;
 using BOZMANOHERMANO.Services.DmServices;
+using BOZMANOHERMANO.Services.Notifications;
 using BOZMANOHERMANO.Services.PostServices;
 using BOZMANOHERMANO.Services.UserFollowServices;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +22,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddSignalR();
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IUserContext, UserContext>();
@@ -80,6 +86,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors("DefaultCorsPolicy");
+
+app.MapHub<NotificationHub>("/hubs/notifications");
+app.MapHub<ChatHub>("/hubs/chat");
+
 
 app.UseHttpsRedirection();
 
