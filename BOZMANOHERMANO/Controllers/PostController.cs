@@ -19,6 +19,12 @@ namespace BOZMANOHERMANO.Controllers
         }
 
         #region PostController
+        [HttpGet("GetTrendingHashTags")]
+        public IActionResult GetTrendingHashTags()
+        {
+            return Ok(_postService.GetTrendingHashtags());
+        }
+
         [HttpGet("GetPost")]
         public IActionResult GetPost(int id)
         {
@@ -37,12 +43,18 @@ namespace BOZMANOHERMANO.Controllers
             return Ok(_postService.GetFollowingPosts());
         }
 
-
         [HttpPost("Post")]
-        public IActionResult Post(AddPostDto post)
+        public async Task<IActionResult> Post(AddPostDto post)
         {
-            var x = _postService.Post(post);
-            return Ok(x);
+            var (message, postId) = _postService.Post(post);
+
+            var mentionedUserIds = await _postService.GetMentions(post.Content);
+            foreach (var userId in mentionedUserIds)
+            {
+                await _notificationService.AddNotificationAsync(userId, "Mention", postId.ToString());
+            }
+
+            return Ok(message);
         }
 
         [HttpDelete("DeletePost")]
@@ -74,7 +86,16 @@ namespace BOZMANOHERMANO.Controllers
         public async Task<IActionResult> Comment(CommentDto comment)
         {
             var x = _postService.Comment(comment);
-            await _notificationService.AddNotificationAsync(_postService.GetPostUserId(comment.PostId), "Comment");
+
+            if (x == "Comment Added")
+                await _notificationService.AddNotificationAsync(_postService.GetPostUserId(comment.PostId), "Comment", comment.PostId.ToString());
+
+            var mentionedUserIds = await _postService.GetMentions(comment.Content);
+            foreach (var userId in mentionedUserIds)
+            {
+                await _notificationService.AddNotificationAsync(userId, "Mention", comment.PostId.ToString());
+            }
+
             return Ok(x);
         }
 
@@ -99,7 +120,8 @@ namespace BOZMANOHERMANO.Controllers
         {
             var x = _postService.Like(postid);
 
-            await _notificationService.AddNotificationAsync(_postService.GetPostUserId(postid), "Like", postid.ToString());
+            if (x == "You liked this post")
+                await _notificationService.AddNotificationAsync(_postService.GetPostUserId(postid), "Like", postid.ToString());
 
             return Ok(x);
         }
@@ -118,7 +140,8 @@ namespace BOZMANOHERMANO.Controllers
         {
             var x = _postService.Retweet(postid);
 
-            await _notificationService.AddNotificationAsync(_postService.GetPostUserId(postid), "Retweet", postid.ToString());
+            if (x == "You retweeted this post")
+                await _notificationService.AddNotificationAsync(_postService.GetPostUserId(postid), "Retweet", postid.ToString());
 
             return Ok(x);
         }
@@ -128,7 +151,8 @@ namespace BOZMANOHERMANO.Controllers
         {
             var x = _postService.RetweetWithThoughts(retweet);
 
-            await _notificationService.AddNotificationAsync(_postService.GetPostUserId(retweet.PostId), "Retweet", retweet.PostId.ToString());
+            if (x == "You retweeted this post with your thoughts")
+                await _notificationService.AddNotificationAsync(_postService.GetPostUserId(retweet.PostId), "Quote", retweet.PostId.ToString());
 
             return Ok(x);
         }

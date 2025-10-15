@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StartUp.Models;
 using StartUp.Models.Data;
+using System.Text.RegularExpressions;
 
 namespace BOZMANOHERMANO.Repo
 {
@@ -11,6 +12,10 @@ namespace BOZMANOHERMANO.Repo
         List<string> Followers(string userId);
 
         string GetPostUserId(int postId);
+
+        IEnumerable<object> GetTrendingHashtags();
+
+        Task<List<string>> GetMentions(string content);
 
         Posts GetPostById(int id);
         List<Posts> GetPosts(string username);
@@ -32,6 +37,7 @@ namespace BOZMANOHERMANO.Repo
         string Save(SavedPosts savedPosts);
         List<SavedPosts> GetSavedPosts(string userId);
     }
+
     public class PostsRepo : IPostsRepo
     {
         private readonly ApplicationDbContext _context;
@@ -64,6 +70,41 @@ namespace BOZMANOHERMANO.Repo
             var post = _context.Posts.FirstOrDefault(p => p.Id == postId);
             return post != null ? post.UserId : string.Empty;
         }
+
+        public IEnumerable<object> GetTrendingHashtags()
+        {
+            var oneDayAgo = DateTime.UtcNow.AddDays(-1);
+            var trendingHashtags = _context.PostsHashtags
+                .Where(ph => ph.Post.CreatedAt >= oneDayAgo)
+                .GroupBy(ph => ph.Hashtag.Tag)
+                .Select(g => new
+                {
+                    Tag = g.Key,
+                    Count = g.Count()
+                })
+                .OrderByDescending(h => h.Count)
+                .Take(10)
+                .ToList();
+            return trendingHashtags;
+        }
+
+        public async Task<List<string>> GetMentions(string content)
+        {
+            var mentions = ExtractMentions(content);
+            var mentionedUserIds = new List<string>();
+
+            foreach (var username in mentions)
+            {
+                var mentionedUser = _context.Users
+                    .FirstOrDefault(u => u.TagName.ToLower() == ("@" + username).ToLower());
+
+                if (mentionedUser != null)
+                    mentionedUserIds.Add(mentionedUser.Id);
+            }
+
+            return mentionedUserIds;
+        }
+
 
         public Posts GetPostById(int id)
         {
@@ -114,6 +155,14 @@ namespace BOZMANOHERMANO.Repo
         public string Post(Posts post)
         {
             _context.Posts.Add(post);
+            _context.SaveChanges();
+
+            var mentions = ExtractMentions(post.Content);
+            foreach (var username in mentions)
+            {
+                var mentionedUser = _context.Users.FirstOrDefault(u => u.TagName.ToLower() == username.ToLower());
+            }
+            AddHashtagsToPost(post);
             _context.SaveChanges();
 
             return "Post Added";
@@ -274,6 +323,41 @@ namespace BOZMANOHERMANO.Repo
             }
             _context.SaveChanges();
             return x;
+        }
+        #endregion
+
+        #region Hashtags
+        private List<string> ExtractHashtags(string content)
+        {
+            var matches = Regex.Matches(content, @"#\w+");
+            return matches.Select(m => m.Value.ToLower()).Distinct().ToList();
+        }
+        private List<string> ExtractMentions(string content)
+        {
+            var matches = Regex.Matches(content, @"@(\w+)");
+            return matches.Select(m => m.Groups[1].Value).ToList();
+        }
+
+        private void AddHashtagsToPost(Posts post)
+        {
+            var hashtags = ExtractHashtags(post.Content);
+            foreach (var tag in hashtags)
+            {
+                var existingTag = _context.Hashtags.FirstOrDefault(h => h.Tag == tag);
+                if (existingTag == null)
+                {
+                    existingTag = new Hashtag { Tag = tag, CreatedAt = DateTime.UtcNow };
+                    _context.Hashtags.Add(existingTag);
+                    _context.SaveChanges();
+                }
+                var postHashtag = new PostsHashtag
+                {
+                    PostId = post.Id,
+                    HashtagId = existingTag.Id
+                };
+                _context.PostsHashtags.Add(postHashtag);
+            }
+            _context.SaveChanges();
         }
         #endregion
     }

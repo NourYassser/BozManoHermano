@@ -11,8 +11,11 @@ namespace BOZMANOHERMANO.Services.Notifications
     public interface INotificationService
     {
         Task AddNotificationAsync(string receiverId, string type, string? postId = null);
+
         Task<IEnumerable<Notification>> GetUserNotificationsAsync();
+
         Task MarkAsReadAsync(int id);
+        Task MarkAsReadAsyncAll();
     }
     public class NotificationService : INotificationService
     {
@@ -46,8 +49,10 @@ namespace BOZMANOHERMANO.Services.Notifications
             {
                 "Like" => "liked your post ❤️",
                 "Follow" => "followed you 👤",
+                "Mention" => "mentioned you 👤",
                 "Reply" => "replied to your tweet 💬",
                 "Retweet" => "retweeted your tweet 🔁",
+                "Quote" => "qouted your tweet 🔁",
                 _ => "sent you a notification"
             };
 
@@ -86,10 +91,34 @@ namespace BOZMANOHERMANO.Services.Notifications
 
         public async Task MarkAsReadAsync(int id)
         {
-            var notification = await _context.Notifications.FindAsync(id);
+            var userId = GetCurrentUserId();
+            if (userId == null) return;
+
+            var notification = await _context.Notifications
+                .Where(a => a.ReceiverId == userId)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
             if (notification == null) return;
 
             notification.IsRead = true;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task MarkAsReadAsyncAll()
+        {
+            var userId = GetCurrentUserId();
+            if (userId == null) return;
+
+            var notifications = await _context.Notifications
+                .Where(a => a.ReceiverId == userId && !a.IsRead)
+                .ToListAsync();
+
+            if (!notifications.Any()) return;
+
+            foreach (var notification in notifications)
+            {
+                notification.IsRead = true;
+            }
             await _context.SaveChangesAsync();
         }
     }

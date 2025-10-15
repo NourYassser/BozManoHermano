@@ -12,6 +12,9 @@ namespace StartUp.Models.Data
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<PostsHashtag>()
+                .HasKey(ph => new { ph.PostId, ph.HashtagId });
+
             builder.Entity<UserFollow>()
                 .HasKey(uf => new { uf.FollowerId, uf.FollowedId });
 
@@ -34,6 +37,9 @@ namespace StartUp.Models.Data
         public DbSet<Comments> Comments { get; set; }
         public DbSet<Likes> Likes { get; set; }
         public DbSet<Retweets> Retweets { get; set; }
+
+        public DbSet<PostsHashtag> PostsHashtags { get; set; }
+        public DbSet<Hashtag> Hashtags { get; set; }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<UserFollow> UserFollows { get; set; }

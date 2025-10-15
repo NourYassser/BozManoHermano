@@ -137,6 +137,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "BOZMANOHERMANO.Controllers.NotificationsController",
+    "Method": "MarkAsReadAll",
+    "RelativePath": "api/Notifications/readAll",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
     "Method": "Comment",
     "RelativePath": "api/Post/Comment",
@@ -262,6 +272,16 @@
     "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
     "Method": "GetSavedPosts",
     "RelativePath": "api/Post/GetSavedPosts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BOZMANOHERMANO.Controllers.PostController",
+    "Method": "GetTrendingHashTags",
+    "RelativePath": "api/Post/GetTrendingHashTags",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

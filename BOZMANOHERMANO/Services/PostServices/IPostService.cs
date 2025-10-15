@@ -14,7 +14,7 @@ namespace BOZMANOHERMANO.Services.PostServices
         List<PostDto> GetPosts(string username);
         List<PostDto> GetFollowingPosts();
 
-        string Post(AddPostDto post);
+        (string Message, int PostId) Post(AddPostDto postDto);
         string DeletePost(int id);
 
         List<LikesDto> PostLikes(int postid);
@@ -30,6 +30,8 @@ namespace BOZMANOHERMANO.Services.PostServices
         string Save(int postId);
         List<PostDto> GetSavedPosts();
 
+        IEnumerable<object> GetTrendingHashtags();
+        Task<List<string>> GetMentions(string content);
     }
     public class PostService : IPostService
     {
@@ -45,6 +47,16 @@ namespace BOZMANOHERMANO.Services.PostServices
         public string GetPostUserId(int postId)
         {
             return _postsRepo.GetPostUserId(postId);
+        }
+
+        public IEnumerable<object> GetTrendingHashtags()
+        {
+            return _postsRepo.GetTrendingHashtags();
+        }
+
+        public Task<List<string>> GetMentions(string content)
+        {
+            return _postsRepo.GetMentions(content);
         }
 
         public PostDto GetPostById(int id)
@@ -179,7 +191,7 @@ namespace BOZMANOHERMANO.Services.PostServices
                 }).ToList()
             }).ToList();
         }
-        public string Post(AddPostDto postDto)
+        public (string Message, int PostId) Post(AddPostDto postDto)
         {
             var post = new Posts
             {
@@ -191,7 +203,7 @@ namespace BOZMANOHERMANO.Services.PostServices
                 CreatedAt = DateTime.UtcNow,
                 UserId = _userContext.GetUserId()
             };
-            return _postsRepo.Post(post);
+            return (_postsRepo.Post(post), post.Id);
         }
 
         public string DeletePost(int id)
