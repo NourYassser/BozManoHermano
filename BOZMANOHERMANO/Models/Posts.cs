@@ -1,14 +1,19 @@
-﻿namespace StartUp.Models
+﻿using BOZMANOHERMANO.Models;
+
+namespace StartUp.Models
 {
     public class Posts
     {
         public int Id { get; set; }
         public string Content { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public string? ImagePath { get; set; } = string.Empty;
+
+        public PrivacyLevel Privacy { get; set; } = PrivacyLevel.Public;
+
         public int Likes { get; set; } = 0;
         public int Retweets { get; set; } = 0;
         public int Comments { get; set; } = 0;
+        public int Views { get; set; } = 0;
 
         public string UserId { get; set; } = string.Empty;
         public ApplicationUser? User { get; set; }
@@ -16,7 +21,17 @@
         public List<Comments> CommentList { get; set; }
         public List<Likes> LikesList { get; set; }
         public List<Retweets> RetweetsList { get; set; }
+
+        public ICollection<PostsImage>? Images { get; set; }
+
     }
+    public enum PrivacyLevel
+    {
+        Public,
+        FollowersOnly,
+        Private
+    }
+
     public class Comments
     {
         public int Id { get; set; }

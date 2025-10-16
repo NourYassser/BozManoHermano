@@ -32,6 +32,7 @@ namespace StartUp.Models.Data
         }
 
         public DbSet<Posts> Posts { get; set; }
+        public DbSet<PostView> PostViews { get; set; }
         public DbSet<SavedPosts> SavedPosts { get; set; }
 
         public DbSet<Comments> Comments { get; set; }
@@ -45,6 +46,6 @@ namespace StartUp.Models.Data
         public DbSet<UserFollow> UserFollows { get; set; }
 
         public DbSet<UserDM> UserDM { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<BOZMANOHERMANO.Models.Notification> Notifications { get; set; }
     }
 }

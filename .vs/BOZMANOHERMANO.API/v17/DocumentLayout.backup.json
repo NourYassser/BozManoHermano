@@ -3,28 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|c:\\users\\nour_\\source\\repos\\bozmanohermano\\bozmanohermano\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|solutionrelative:bozmanohermano\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|c:\\users\\nour_\\source\\repos\\bozmanohermano\\bozmanohermano\\repo\\userdmrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|solutionrelative:bozmanohermano\\repo\\userdmrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|c:\\users\\nour_\\source\\repos\\bozmanohermano\\bozmanohermano\\services\\postservices\\ipostservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|solutionrelative:bozmanohermano\\services\\postservices\\ipostservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|c:\\users\\nour_\\source\\repos\\bozmanohermano\\bozmanohermano\\repo\\postsrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|solutionrelative:bozmanohermano\\repo\\postsrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|c:\\users\\nour_\\source\\repos\\bozmanohermano\\bozmanohermano\\models\\hashtag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|solutionrelative:bozmanohermano\\models\\hashtag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|c:\\users\\nour_\\source\\repos\\bozmanohermano\\bozmanohermano\\services\\notifications\\notificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|solutionrelative:bozmanohermano\\services\\notifications\\notificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|c:\\users\\nour_\\source\\repos\\bozmanohermano\\bozmanohermano\\models\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|solutionrelative:bozmanohermano\\models\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|c:\\users\\nour_\\source\\repos\\bozmanohermano\\bozmanohermano\\services\\dmservices\\iuserdmservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8FCAC533-420F-16F6-82A3-4FE9C1218F17}|BOZMANOHERMANO\\BOZMANOHERMANO.csproj|solutionrelative:bozmanohermano\\services\\dmservices\\iuserdmservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,88 +18,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserDmRepo.cs",
+              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Repo\\UserDmRepo.cs",
+              "RelativeDocumentMoniker": "BOZMANOHERMANO\\Repo\\UserDmRepo.cs",
+              "ToolTip": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Repo\\UserDmRepo.cs",
+              "RelativeToolTip": "BOZMANOHERMANO\\Repo\\UserDmRepo.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAA9wBwAAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-16T12:41:24.589Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "NotificationService.cs",
-              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Services\\Notifications\\NotificationService.cs",
-              "RelativeDocumentMoniker": "BOZMANOHERMANO\\Services\\Notifications\\NotificationService.cs",
-              "ToolTip": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Services\\Notifications\\NotificationService.cs",
-              "RelativeToolTip": "BOZMANOHERMANO\\Services\\Notifications\\NotificationService.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAcwDcAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-15T10:44:35.046Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Models\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "BOZMANOHERMANO\\Models\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Models\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "BOZMANOHERMANO\\Models\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-15T09:39:28.053Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "IPostService.cs",
-              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Services\\PostServices\\IPostService.cs",
-              "RelativeDocumentMoniker": "BOZMANOHERMANO\\Services\\PostServices\\IPostService.cs",
-              "ToolTip": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Services\\PostServices\\IPostService.cs",
-              "RelativeToolTip": "BOZMANOHERMANO\\Services\\PostServices\\IPostService.cs",
-              "ViewState": "AgIAALIAAAAAAAAAAAAuwM0AAAAjAAAAAAAAAA==",
+              "Title": "IUserDmService.cs",
+              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Services\\DmServices\\IUserDmService.cs",
+              "RelativeDocumentMoniker": "BOZMANOHERMANO\\Services\\DmServices\\IUserDmService.cs",
+              "ToolTip": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Services\\DmServices\\IUserDmService.cs",
+              "RelativeToolTip": "BOZMANOHERMANO\\Services\\DmServices\\IUserDmService.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAADgvyoAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-15T09:37:42.601Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Hashtag.cs",
-              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Models\\Hashtag.cs",
-              "RelativeDocumentMoniker": "BOZMANOHERMANO\\Models\\Hashtag.cs",
-              "ToolTip": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Models\\Hashtag.cs",
-              "RelativeToolTip": "BOZMANOHERMANO\\Models\\Hashtag.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-15T09:36:06.964Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PostController.cs",
-              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Controllers\\PostController.cs",
-              "RelativeDocumentMoniker": "BOZMANOHERMANO\\Controllers\\PostController.cs",
-              "ToolTip": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Controllers\\PostController.cs",
-              "RelativeToolTip": "BOZMANOHERMANO\\Controllers\\PostController.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAiwDgAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-15T09:11:52.991Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PostsRepo.cs",
-              "DocumentMoniker": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Repo\\PostsRepo.cs",
-              "RelativeDocumentMoniker": "BOZMANOHERMANO\\Repo\\PostsRepo.cs",
-              "ToolTip": "C:\\Users\\nour_\\source\\repos\\BOZMANOHERMANO\\BOZMANOHERMANO\\Repo\\PostsRepo.cs",
-              "RelativeToolTip": "BOZMANOHERMANO\\Repo\\PostsRepo.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAAAF4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-15T09:09:31.011Z",
+              "WhenOpened": "2025-10-16T11:20:56.287Z",
               "EditorCaption": ""
             }
           ]

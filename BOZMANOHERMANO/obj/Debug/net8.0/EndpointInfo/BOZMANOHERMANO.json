@@ -603,28 +603,28 @@
         "tags": [
           "Post"
         ],
-        "parameters": [
-          {
-            "name": "Content",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
+                  "Content": {
+                    "type": "string"
+                  },
                   "ImagePath": {
-                    "type": "string",
-                    "format": "binary"
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
                   }
                 }
               },
               "encoding": {
+                "Content": {
+                  "style": "form"
+                },
                 "ImagePath": {
                   "style": "form"
                 }
@@ -865,8 +865,11 @@
                 "type": "object",
                 "properties": {
                   "ImagePath": {
-                    "type": "string",
-                    "format": "binary"
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
                   }
                 }
               },

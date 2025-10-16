@@ -1,8 +1,12 @@
 ﻿using BOZMANOHERMANO.Dtos;
 using BOZMANOHERMANO.Models;
 using BOZMANOHERMANO.Repo;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Processing;
 using StartUp.HiddenServices;
 using StartUp.Models;
+using System.Collections.Immutable;
 
 namespace BOZMANOHERMANO.Services.PostServices
 {
@@ -61,8 +65,9 @@ namespace BOZMANOHERMANO.Services.PostServices
 
         public PostDto GetPostById(int id)
         {
-            var p = _postsRepo.GetPostById(id);
+            var p = _postsRepo.GetPostById(id, _userContext.GetUserId());
             if (p == null) return null;
+
             return new PostDto
             {
                 Id = p.Id,
@@ -71,10 +76,11 @@ namespace BOZMANOHERMANO.Services.PostServices
                 UserName = p.User.UserName,
                 TagName = p.User.TagName,
                 Content = p.Content,
-                ImagePath = p.ImagePath,
+                ImagePath = p.Images?.Select(i => i.ImageUrl).ToList(),
                 Likes = p.LikesList.Count,
                 Retweets = p.RetweetsList.Count,
                 Comments = p.CommentList.Count,
+                Views = ++p.Views,
                 LikesDto = p.LikesList?.Select(c => new LikesDto
                 {
                     Id = c.Id,
@@ -114,10 +120,11 @@ namespace BOZMANOHERMANO.Services.PostServices
                 UserName = p.User.UserName,
                 TagName = p.User.TagName,
                 Content = p.Content,
-                ImagePath = p.ImagePath,
+                ImagePath = p.Images?.Select(i => i.ImageUrl).ToList(),
                 Likes = p.LikesList.Count,
                 Retweets = p.RetweetsList.Count,
                 Comments = p.CommentList.Count,
+                Views = p.Views,
                 LikesDto = p.LikesList?.Select(c => new LikesDto
                 {
                     Id = c.Id,
@@ -160,10 +167,11 @@ namespace BOZMANOHERMANO.Services.PostServices
                 UserName = p.User.UserName,
                 TagName = p.User.TagName,
                 Content = p.Content,
-                ImagePath = p.ImagePath,
+                ImagePath = p.Images?.Select(i => i.ImageUrl).ToList(),
                 Likes = p.LikesList.Count,
                 Retweets = p.RetweetsList.Count,
                 Comments = p.CommentList.Count,
+                Views = p.Views,
                 LikesDto = p.LikesList?.Select(c => new LikesDto
                 {
                     Id = c.Id,
@@ -193,17 +201,26 @@ namespace BOZMANOHERMANO.Services.PostServices
         }
         public (string Message, int PostId) Post(AddPostDto postDto)
         {
+            var imagePath = postDto.ImagePath != null ? SaveImage(postDto.ImagePath) : null;
+
             var post = new Posts
             {
                 Content = postDto.Content,
-                ImagePath = postDto.ImagePath != null ? SaveImage(postDto.ImagePath) : null,
+                Images = imagePath?.Select(i => new PostsImage()
+                {
+                    ImageUrl = i
+                }).ToList(),
                 Likes = 0,
                 Retweets = 0,
                 Comments = 0,
                 CreatedAt = DateTime.UtcNow,
+                Privacy = PrivacyLevel.Public,
                 UserId = _userContext.GetUserId()
             };
-            return (_postsRepo.Post(post), post.Id);
+
+            _postsRepo.Post(post);
+
+            return ("Post Added", post.Id);
         }
 
         public string DeletePost(int id)
@@ -237,7 +254,7 @@ namespace BOZMANOHERMANO.Services.PostServices
                 UserName = sp.Post.User.UserName,
                 TagName = sp.Post.User.TagName,
                 Content = sp.Post.Content,
-                ImagePath = sp.Post.ImagePath,
+                ImagePath = sp.Post.Images?.Select(i => i.ImageUrl).ToList(),
                 Likes = sp.Post.LikesList.Count,
                 Retweets = sp.Post.RetweetsList.Count,
                 Comments = sp.Post.CommentList.Count,
@@ -350,21 +367,48 @@ namespace BOZMANOHERMANO.Services.PostServices
         }
         #endregion
 
-        string? SaveImage(IFormFile image)
+        #region ImgServices
+        private List<string>? SaveImage(List<IFormFile>? images)
         {
-            if (image == null || image.Length == 0) return null;
+            if (images == null || images.Count == 0)
+                return null;
+
+            var savedPaths = new List<string>();
             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+
             if (!Directory.Exists(uploadsFolder))
-            {
                 Directory.CreateDirectory(uploadsFolder);
-            }
-            var uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
-            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
+
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+
+            foreach (var image in images)
             {
-                image.CopyTo(fileStream);
+                var extension = Path.GetExtension(image.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(extension))
+                    continue;
+
+                var uniqueFileName = $"{Guid.NewGuid()}{extension}";
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using var img = Image.Load(image.OpenReadStream());
+
+                var encoder = new JpegEncoder { Quality = 80 };
+
+                img.Mutate(x => x.Resize(new ResizeOptions
+                {
+                    Mode = ResizeMode.Max,
+                    Size = new Size(1280, 0)
+                }));
+
+                img.Save(filePath, encoder);
+
+                savedPaths.Add($"/images/{uniqueFileName}");
             }
-            return "/images/" + uniqueFileName;
+
+            return savedPaths;
         }
+        #endregion
+
     }
 }

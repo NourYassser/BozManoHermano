@@ -23,13 +23,28 @@ namespace BOZMANOHERMANO.Repo
 
         public List<UserDM> GetMessages(string userId)
         {
-            return _context.UserDM
-                .Where(p => p.RecieverId == userId)
-                .Include(p => p.Sender)
-                .AsNoTracking()
-                .OrderByDescending(p => p.MessageDate)
+            var lastMessageIds = _context.UserDM
+                .Where(m => m.SenderId == userId || m.RecieverId == userId)
+                .GroupBy(m => m.SenderId == userId ? m.RecieverId : m.SenderId)
+                .Select(g => g.OrderByDescending(m => m.MessageDate)
+                              .Select(m => m.Id)
+                              .FirstOrDefault())
                 .ToList();
+
+            if (!lastMessageIds.Any())
+                return new List<UserDM>();
+
+            var lastMessages = _context.UserDM
+                .Where(m => lastMessageIds.Contains(m.Id))
+                .Include(m => m.Sender)
+                .Include(m => m.Reciever)
+                .OrderByDescending(m => m.MessageDate)
+                .AsNoTracking()
+                .ToList();
+
+            return lastMessages;
         }
+
 
         public List<UserDM> OpenChat(string senderId, string recId)
         {

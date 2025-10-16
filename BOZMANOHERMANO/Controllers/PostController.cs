@@ -44,7 +44,7 @@ namespace BOZMANOHERMANO.Controllers
         }
 
         [HttpPost("Post")]
-        public async Task<IActionResult> Post(AddPostDto post)
+        public async Task<IActionResult> Post([FromForm] AddPostDto post)
         {
             var (message, postId) = _postService.Post(post);
 

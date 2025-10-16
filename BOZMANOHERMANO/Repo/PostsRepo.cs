@@ -17,7 +17,7 @@ namespace BOZMANOHERMANO.Repo
 
         Task<List<string>> GetMentions(string content);
 
-        Posts GetPostById(int id);
+        Posts GetPostById(int id, string userId);
         List<Posts> GetPosts(string username);
         List<Posts> GetFollowingPosts(List<string> followingList);
 
@@ -29,7 +29,7 @@ namespace BOZMANOHERMANO.Repo
 
         List<Retweets> PostRetweets(int postid);
         string Retweet(Retweets retweets);
-        string RetweetWithThoughts(Retweets retweets, string content, string? imgUrl);
+        string RetweetWithThoughts(Retweets retweets, string content, List<string>? imgUrl);
 
         string Comment(Comments comments);
         string DeleteComment(string userId, int id);
@@ -73,7 +73,7 @@ namespace BOZMANOHERMANO.Repo
 
         public IEnumerable<object> GetTrendingHashtags()
         {
-            var oneDayAgo = DateTime.UtcNow.AddDays(-1);
+            var oneDayAgo = DateTime.UtcNow.AddDays(-7);
             var trendingHashtags = _context.PostsHashtags
                 .Where(ph => ph.Post.CreatedAt >= oneDayAgo)
                 .GroupBy(ph => ph.Hashtag.Tag)
@@ -106,25 +106,43 @@ namespace BOZMANOHERMANO.Repo
         }
 
 
-        public Posts GetPostById(int id)
+        public Posts GetPostById(int id, string userId)
         {
-            return _context.Posts
+            var post = _context.Posts
+                .Include(p => p.Images)
                 .Include(p => p.User)
-                .Include(p => p.LikesList)
-                    .ThenInclude(c => c.User)
-                .Include(p => p.CommentList)
-                    .ThenInclude(c => c.User)
-                .Include(p => p.RetweetsList)
-                     .ThenInclude(c => c.User)
+                .Include(p => p.LikesList).ThenInclude(l => l.User)
+                .Include(p => p.CommentList).ThenInclude(c => c.User)
+                .Include(p => p.RetweetsList).ThenInclude(r => r.User)
                 .FirstOrDefault(p => p.Id == id);
+
+            if (post == null)
+                return null;
+
+            var hasViewed = _context.PostViews
+                .Any(a => a.PostsId == id && a.UserId == userId);
+
+            if (!hasViewed)
+            {
+                post.Views++;
+                _context.PostViews.Add(new PostView { PostsId = id, UserId = userId });
+                _context.SaveChanges();
+            }
+
+            return post;
         }
 
         public List<Posts> GetPosts(string username)
         {
             var user = _context.Users.FirstOrDefault(u => u.UserName == username);
             if (user == null) return new List<Posts>();
+
             return _context.Posts
-                .Where(p => p.UserId == user.Id || p.RetweetsList.Any(r => r.UserId == user.Id))
+                .Where(p => p.UserId == user.Id && (
+                       p.Privacy == PrivacyLevel.Public ||
+                       p.Privacy == PrivacyLevel.FollowersOnly) ||
+                       p.RetweetsList.Any(r => r.UserId == user.Id))
+                .Include(p => p.Images)
                 .Include(p => p.User)
                 .Include(p => p.LikesList)
                     .ThenInclude(c => c.User)
@@ -138,9 +156,16 @@ namespace BOZMANOHERMANO.Repo
         }
         public List<Posts> GetFollowingPosts(List<string> followingList)
         {
-            return _context.Posts
-                .Where(p => followingList.Contains(p.UserId) ||
-                    p.RetweetsList.Any(r => followingList.Contains(r.UserId)))
+            return _context.Posts.Where(p =>
+                   followingList.Contains(p.UserId) &&
+                   (
+                       p.Privacy == PrivacyLevel.Public ||
+
+                       (p.Privacy == PrivacyLevel.FollowersOnly && followingList.Contains(p.UserId)) ||
+
+                       p.RetweetsList.Any(r => followingList.Contains(r.UserId))
+                   ))
+                .Include(p => p.Images)
                 .Include(p => p.User)
                 .Include(p => p.LikesList)
                     .ThenInclude(c => c.User)
@@ -201,7 +226,8 @@ namespace BOZMANOHERMANO.Repo
         public List<SavedPosts> GetSavedPosts(string userId)
         {
             return _context.SavedPosts
-                .Where(sp => sp.UserId == userId)
+                .Where(sp => sp.UserId == userId && sp.Post.Privacy == PrivacyLevel.Public)
+                .Include(p => p.Post.Images)
                 .Include(sp => sp.User)
                 .Include(sp => sp.Post)
                     .ThenInclude(p => p.User)
@@ -297,7 +323,7 @@ namespace BOZMANOHERMANO.Repo
             _context.SaveChanges();
             return x;
         }
-        public string RetweetWithThoughts(Retweets retweets, string content, string? imgUrl)
+        public string RetweetWithThoughts(Retweets retweets, string content, List<string>? imgUrl)
         {
             var existingLike = _context.Retweets
                 .FirstOrDefault(l => l.UserId == retweets.UserId
@@ -316,7 +342,10 @@ namespace BOZMANOHERMANO.Repo
                     Content = content,
                     UserId = retweets.UserId,
                     CreatedAt = DateTime.UtcNow,
-                    ImagePath = imgUrl
+                    Images = imgUrl?.Select(url => new PostsImage
+                    {
+                        ImageUrl = url
+                    }).ToList()
                 };
                 _context.Posts.Add(newPost);
                 x = "You retweeted this post with your thoughts";
@@ -360,5 +389,6 @@ namespace BOZMANOHERMANO.Repo
             _context.SaveChanges();
         }
         #endregion
+
     }
 }

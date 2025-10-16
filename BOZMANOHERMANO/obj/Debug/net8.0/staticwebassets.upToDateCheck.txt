@@ -4,3 +4,6 @@ wwwroot\material\img\1660708609305.jpg
 wwwroot\material\img\1726138347782.jpg
 wwwroot\material\html\welcome_template.html
 wwwroot\material\html\reset_password_template.html
+wwwroot\images\aad02301-e102-4b35-a823-10fe5e6e1f3d.jpg
+wwwroot\images\9f98299e-88c0-492a-9297-4468464df00f.jpg
+wwwroot\images\bfbeb023-f8a7-482b-9168-87153a069651.jpg
