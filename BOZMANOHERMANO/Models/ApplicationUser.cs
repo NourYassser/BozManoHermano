@@ -6,9 +6,15 @@ namespace StartUp.Models
     public class ApplicationUser : IdentityUser
     {
         public string TagName { get; set; } = string.Empty;
+
         public string? ProfilePicPath { get; set; } = string.Empty;
         public string? HeaderPath { get; set; } = string.Empty;
+
         public string? Bio { get; set; } = string.Empty;
+
+        public bool IsVerified { get; set; } = false;
+        public bool IsBanned { get; set; } = false;
+
         public ICollection<Posts> Posts { get; set; } = new HashSet<Posts>();
 
         public ICollection<UserFollow> Followings { get; set; } = new HashSet<UserFollow>();

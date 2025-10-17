@@ -1,5 +1,6 @@
 using BOZMANOHERMANO.Hub;
 using BOZMANOHERMANO.Repo;
+using BOZMANOHERMANO.Services.AdminServices;
 using BOZMANOHERMANO.Services.DmServices;
 using BOZMANOHERMANO.Services.Notifications;
 using BOZMANOHERMANO.Services.PostServices;
@@ -25,6 +26,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddSignalR();
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
